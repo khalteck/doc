@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .rotate {
+    animation: rotation 0.8s infinite linear;
+  }
+  @keyframes rotation {
+    from {
+      transform: rotate(359deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+  .slide {
+    animation: slide 0.8s ease-out;
+  }
+  @keyframes slide {
+    0% {
+      opacity: 0;
+      transform: translateX(200px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
+  .swing {
+    animation: swing 10s ease infinite;
+  }
+  @keyframes swing {
+    0%,
+    100% {
+      transform: rotate(-5deg);
+    }
+    50% {
+      transform: rotate(5deg);
+    }
+  }
+  .slide1 {
+    width: 100%;
+    /* height: 600px; */
+    background: url("../public/images/slide1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .slide2 {
+    width: 100%;
+    /* height: 600px; */
+    background: url("../public/images/slide2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .slide3 {
+    width: 100%;
+    /* height: 600px; */
+    background: url("../public/images/slide3.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .about {
+    width: 100%;
+    /* height: 600px; */
+    background: url("../public/images/about.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+  }
+  .overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: relative;
+  }
+  .hero--text {
+    height: fit-content;
+    /* font-size: 60px; */
+    color: white;
+    /* padding: 30px 100px 50px 30px; */
+    border: 2px solid white;
+  }
+}
