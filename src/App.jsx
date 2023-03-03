@@ -5,7 +5,8 @@ import Homepage from "./pages/Homepage";
 import { lazy, Suspense } from "react";
 import Loader from "./components/Loader";
 
-// const About = lazy(() => import("./pages/About"));
+const About = lazy(() => import("./pages/About"));
+const Doctor = lazy(() => import("./pages/Doctor"));
 
 function App() {
   // const { user, admin, activeRidesFromDb } = useAppContext();
@@ -13,7 +14,8 @@ function App() {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        {/* <Route path="/about" element={<About />} /> */}
+        <Route path="/about" element={<About />} />
+        <Route path="/doctor/:name" element={<Doctor />} />
 
         {/* page not found */}
         {/* <Route path="*" element={<PageNotFound />} /> */}

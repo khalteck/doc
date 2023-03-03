@@ -1,42 +1,42 @@
 [
   {
     "id": 1,
-    "image": "/images/p1.jpg",
-    "name": "Compact home UPSs"
+    "image": "/images/doc1.jpg",
+    "name": "Dr. James Chen1"
   },
   {
     "id": 2,
-    "image": "/images/p2.jpg",
-    "name": "Office & IT UPSs"
+    "image": "/images/doc2.jpg",
+    "name": "Dr. Sarah Lee1"
   },
   {
     "id": 3,
-    "image": "/images/p3.jpg",
-    "name": "Modular UPSs"
+    "image": "/images/doc3.jpg",
+    "name": "Dr. Jennifer Nguyen1"
   },
   {
     "id": 4,
-    "image": "/images/p4.jpg",
-    "name": "Industrial UPSs"
+    "image": "/images/doc1.jpg",
+    "name": "Dr. James Chen2"
   },
   {
     "id": 5,
-    "image": "/images/p5.jpg",
-    "name": "Custom solutions"
+    "image": "/images/doc2.jpg",
+    "name": "Dr. Sarah Lee2"
   },
   {
     "id": 6,
-    "image": "/images/p6.jpg",
-    "name": "Switching systems"
+    "image": "/images/doc3.jpg",
+    "name": "Dr. Jennifer Nguyen2"
   },
   {
     "id": 7,
-    "image": "/images/p7.jpg",
-    "name": "Software & communication"
+    "image": "/images/doc1.jpg",
+    "name": "Dr. James Chen3"
   },
   {
     "id": 8,
-    "image": "/images/p8.jpg",
-    "name": "Solar inverter"
+    "image": "/images/doc2.jpg",
+    "name": "Dr. Sarah Lee3"
   }
 ]
