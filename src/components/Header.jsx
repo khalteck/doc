@@ -51,8 +51,8 @@ const Header = () => {
             <Link
               to="/"
               className={`cursor-pointer px-2 py-1 ${
-                currentPage === "/" && "bg-[#f43f5e] text-white"
-              } rounded-md hover:bg-[#f43f5e] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
+                currentPage === "/" && "bg-[#3b82f6] text-white"
+              } rounded-md hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
             >
               Home
             </Link>
@@ -60,7 +60,7 @@ const Header = () => {
             {/* <div
               onMouseOut={toggleLogoutOff}
               onMouseOver={toggleLogoutOn}
-              className="relative flex gap-1 items-center cursor-pointer px-2 py-1 rounded-md hover:bg-[#f43f5e] hover:text-black hover:translate-y-[6px] transition-all duration-300"
+              className="relative flex gap-1 items-center cursor-pointer px-2 py-1 rounded-md hover:bg-[#3b82f6] hover:text-black hover:translate-y-[6px] transition-all duration-300"
             >
               <div className={` whitespace-nowrap `}>Personnels</div>
               <img
@@ -75,37 +75,37 @@ const Header = () => {
                   className={`w-[200px] bg-white px-4 py-3 absolute top-[30px] left-[-20px] transition-all duration-500`}
                 >
                   <Link to="/product/Compact%20home%20UPSs">
-                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-black/50">
+                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-black/50">
                       Doc1{" "}
                     </li>
                   </Link>
                   <Link to="/product/Office%20&%20IT%20UPSs">
-                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-black/50">
+                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-black/50">
                       Doc2{" "}
                     </li>
                   </Link>
                   <Link to="/product/Modular%20UPSs">
-                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-black/50">
+                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-black/50">
                       Doc3{" "}
                     </li>
                   </Link>
                   <Link to="/product/Industrial%20UPSs">
-                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-black/50">
+                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-black/50">
                       Doc4{" "}
                     </li>
                   </Link>
                   <Link to="/product/Custom%20solutions">
-                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-black/50">
+                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-black/50">
                       Doc5{" "}
                     </li>
                   </Link>
                   <Link to="/product/Switching%20systems">
-                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-black/50">
+                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-black/50">
                       Doc6{" "}
                     </li>
                   </Link>
                   <Link to="/product/Software%20&%20communication">
-                    <li className="py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-white/50">
+                    <li className="py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
                       Doc7{" "}
                     </li>
                   </Link>
@@ -115,26 +115,44 @@ const Header = () => {
             <Link
               to="/appointments"
               className={`cursor-pointer px-2 py-1 ${
-                currentPage === "/appointments" && "bg-[#f43f5e] text-white"
-              } rounded-md whitespace-nowrap hover:bg-[#f43f5e] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
+                currentPage === "/appointments" && "bg-[#3b82f6] text-white"
+              } rounded-md whitespace-nowrap hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
             >
               Appointments
             </Link>
             <Link
               to="/about"
               className={`cursor-pointer px-2 py-1 ${
-                currentPage === "/about" && "bg-[#f43f5e] text-white"
-              } rounded-md whitespace-nowrap hover:bg-[#f43f5e] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
+                currentPage === "/about" && "bg-[#3b82f6] text-white"
+              } rounded-md whitespace-nowrap hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
             >
               About us
             </Link>
             <div
               className={`cursor-pointer px-2 py-1 ${
-                currentPage === "/contact" && "bg-[#f43f5e] text-white"
-              } rounded-md hover:bg-[#f43f5e] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
+                currentPage === "/contact" && "bg-[#3b82f6] text-white"
+              } rounded-md hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
             >
               Contact
             </div>
+            <Link to="/login">
+              <div
+                className={`cursor-pointer px-2 py-1 ${
+                  currentPage === "/login" && "bg-[#3b82f6] text-white"
+                } rounded-md hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
+              >
+                Login
+              </div>
+            </Link>
+            <Link to="/register">
+              <div
+                className={`cursor-pointer px-2 py-1 ${
+                  currentPage === "/register" && "bg-[#3b82f6] text-white"
+                } rounded-md hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
+              >
+                Register
+              </div>
+            </Link>
           </div>
         </nav>
       </div>
@@ -198,7 +216,7 @@ const Header = () => {
                       onClick={hideDropdown}
                       to="/product/Compact%20home%20UPSs"
                     >
-                      <li className="border-y border-white/20 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-white/50">
+                      <li className="border-y border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
                         Compact Home UPSs
                       </li>
                     </Link>
@@ -206,12 +224,12 @@ const Header = () => {
                       onClick={hideDropdown}
                       to="/product/Office%20&%20IT%20UPSs"
                     >
-                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-white/50">
+                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
                         Office & IT UPSs
                       </li>
                     </Link>
                     <Link onClick={hideDropdown} to="/product/Modular%20UPSs">
-                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-white/50">
+                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
                         Modular UPSs
                       </li>
                     </Link>
@@ -219,7 +237,7 @@ const Header = () => {
                       onClick={hideDropdown}
                       to="/product/Industrial%20UPSs"
                     >
-                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-white/50">
+                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
                         Industrial UPSs
                       </li>
                     </Link>
@@ -227,7 +245,7 @@ const Header = () => {
                       onClick={hideDropdown}
                       to="/product/Custom%20solutions"
                     >
-                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-white/50">
+                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
                         Custom Solutions
                       </li>
                     </Link>
@@ -235,7 +253,7 @@ const Header = () => {
                       onClick={hideDropdown}
                       to="/product/Switching%20systems"
                     >
-                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-white/50">
+                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
                         Switching Systems
                       </li>
                     </Link>
@@ -243,7 +261,7 @@ const Header = () => {
                       onClick={hideDropdown}
                       to="/product/Software%20&%20communication"
                     >
-                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#f43f5e] hover:text-white/50">
+                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
                         Software & Communications
                       </li>
                     </Link>
@@ -269,6 +287,16 @@ const Header = () => {
                   }}
                 >
                   <div className="w-full">Contact</div>
+                </Link>
+              </li>
+              <li className="my-4">
+                <Link to="/login" onClick={hideDropdown}>
+                  <div className="w-full">login</div>
+                </Link>
+              </li>
+              <li className="my-4">
+                <Link to="/register" onClick={hideDropdown}>
+                  <div className="w-full">register</div>
                 </Link>
               </li>
             </ul>

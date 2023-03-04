@@ -37,7 +37,7 @@ const Slideshow = () => {
                   Get the best medical advices from our team of professionals...
                 </p>
                 <Link to="/about">
-                  <button className="py-1 sm:py-2 px-6 text-[.8rem] sm:text-[1rem] bg-[#e11d48] hover:bg-rose-600/70 text-white rounded-md">
+                  <button className="py-1 sm:py-2 px-6 text-[.8rem] sm:text-[1rem] bg-[#3b82f6] hover:bg-[#3b82f6]/70 text-white rounded-md">
                     Details
                   </button>
                 </Link>
@@ -57,7 +57,7 @@ const Slideshow = () => {
                   Discover our exceptional medical team...
                 </p>
                 <Link to="/about">
-                  <button className="py-1 sm:py-2 px-6 text-[.8rem] sm:text-[1rem] bg-[#e11d48] hover:bg-rose-600/70 text-white rounded-md">
+                  <button className="py-1 sm:py-2 px-6 text-[.8rem] sm:text-[1rem] bg-[#3b82f6] hover:bg-[#3b82f6]/70 text-white rounded-md">
                     Details
                   </button>
                 </Link>
@@ -77,7 +77,7 @@ const Slideshow = () => {
                   We are dedicated to providing high-quality patient care...
                 </p>
                 <Link to="/about">
-                  <button className="py-1 sm:py-2 px-6 text-[.8rem] sm:text-[1rem] bg-[#e11d48] hover:bg-rose-600/70 text-white rounded-md">
+                  <button className="py-1 sm:py-2 px-6 text-[.8rem] sm:text-[1rem] bg-[#3b82f6] hover:bg-[#3b82f6]/70 text-white rounded-md">
                     Details
                   </button>
                 </Link>

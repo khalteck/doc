@@ -9,7 +9,7 @@ const ProductCard = ({ item }) => {
           : "https://www.aros-solar.com/en"
       }
     >
-      <div className="w-full min-h-[240px] bg-[#f43f5e] border border-[#f43f5e] cursor-pointer relative">
+      <div className="w-full min-h-[240px] bg-[#3b82f6] border border-[#3b82f6] cursor-pointer relative">
         <img
           alt=""
           src={item?.image}

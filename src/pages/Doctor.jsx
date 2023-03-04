@@ -22,7 +22,7 @@ const Doctor = () => {
           <h1 className="font-bold text-[1.25rem] md:text-[1.75rem] text-center mb-1">
             Book an appointment
           </h1>
-          <div className="w-full h-[1px] bg-gradient-to-r from-[#f43f5e] to-white/10"></div>
+          <div className="w-full h-[1px] bg-gradient-to-r from-[#3b82f6] to-white/10"></div>
         </div>
 
         <h2 className="font-bold text-[1.1rem] md:text-[1.5rem] text-center md:text-start mb-4">
@@ -48,7 +48,7 @@ const Doctor = () => {
               {!showBook && (
                 <button
                   onClick={toggleBookOn}
-                  className="py-2 px-6 text-[.8rem] sm:text-[1rem] bg-[#f43f5e] hover:bg-rose-400 text-white rounded-md"
+                  className="py-2 px-6 text-[.8rem] sm:text-[1rem] bg-[#3b82f6] hover:bg-blue-300 text-white rounded-md"
                 >
                   Book now
                 </button>
