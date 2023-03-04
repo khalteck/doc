@@ -4,9 +4,10 @@ import Homepage from "./pages/Homepage";
 // import { useAppContext } from "./contexts/AppContext";
 import { lazy, Suspense } from "react";
 import Loader from "./components/Loader";
+import Doctor from "./pages/Doctor";
 
 const About = lazy(() => import("./pages/About"));
-const Doctor = lazy(() => import("./pages/Doctor"));
+// const Doctor = lazy(() => import("./pages/Doctor"));
 
 function App() {
   // const { user, admin, activeRidesFromDb } = useAppContext();

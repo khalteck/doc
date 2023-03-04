@@ -38,7 +38,7 @@ const Header = () => {
     <header>
       {/* desktop header */}
       <div
-        className={`sm:w-full md:w-full top-0 bg-white lg:px-[15%] px-12 py-3 fixed left-[50%] translate-x-[-50%] border-b border-slate-600 md:flex items-center z-[50] hidden transition-all duration-500`}
+        className={`sm:w-full md:w-full top-0 bg-white lg:px-[15%] px-12 py-3 fixed left-[50%] translate-x-[-50%] md:flex items-center z-[50] hidden transition-all duration-500 shadow-md`}
       >
         <Link to="/" className="mr-auto">
           {/* <img alt="" src="/images/logo.png" className="w-28 h-20" /> */}
@@ -57,7 +57,7 @@ const Header = () => {
               Home
             </Link>
 
-            <div
+            {/* <div
               onMouseOut={toggleLogoutOff}
               onMouseOver={toggleLogoutOn}
               className="relative flex gap-1 items-center cursor-pointer px-2 py-1 rounded-md hover:bg-[#f43f5e] hover:text-black hover:translate-y-[6px] transition-all duration-300"
@@ -111,7 +111,15 @@ const Header = () => {
                   </Link>
                 </ul>
               )}
-            </div>
+            </div> */}
+            <Link
+              to="/appointments"
+              className={`cursor-pointer px-2 py-1 ${
+                currentPage === "/appointments" && "bg-[#f43f5e] text-white"
+              } rounded-md whitespace-nowrap hover:bg-[#f43f5e] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
+            >
+              Appointments
+            </Link>
             <Link
               to="/about"
               className={`cursor-pointer px-2 py-1 ${
@@ -169,7 +177,7 @@ const Header = () => {
                   <div className="w-full">Home</div>
                 </Link>
               </li>
-              <li onClick={toggleOnOff} className="mt-4">
+              {/* <li onClick={toggleOnOff} className="mt-4">
                 <div className="w-full flex gap-2 items-center relative">
                   <div className="">Personnels</div>
                   <img
@@ -180,8 +188,8 @@ const Header = () => {
                     } w-4 h-4 transition-all duration-500`}
                   />
                 </div>
-              </li>
-              {showDrop && (
+              </li> */}
+              {/* {showDrop && (
                 <li className="transition-all duration-500">
                   <ul
                     className={`w-[200px] bg-transparent px-4 py-3 text-white text-[.85rem]`}
@@ -241,7 +249,12 @@ const Header = () => {
                     </Link>
                   </ul>
                 </li>
-              )}
+              )} */}
+              <li className="my-4">
+                <Link to="/appointments" onClick={hideDropdown}>
+                  <div className="w-full">Appointments</div>
+                </Link>
+              </li>
               <li className="my-4">
                 <Link to="/about" onClick={hideDropdown}>
                   <div className="w-full">About Us</div>
