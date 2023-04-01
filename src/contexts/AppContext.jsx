@@ -11,6 +11,9 @@ const AppContextProvider = ({ children }) => {
 
   const [loader, setLoader] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  useEffect(() => {
+    setSubmitError("");
+  }, [currentPage]);
   const [registerSuccess, setRegisterSuccess] = useState("");
 
   //to reg patients   //to reg patients   //to reg patients
@@ -75,7 +78,7 @@ const AppContextProvider = ({ children }) => {
         }
       } catch (error) {
         console.error(error);
-        setSubmitError("Something went wrong, try again later.");
+        setSubmitError("Bad network connection");
       } finally {
         setLoader(false);
       }
@@ -151,7 +154,7 @@ const AppContextProvider = ({ children }) => {
         }
       } catch (error) {
         console.error(error);
-        setSubmitError("Something went wrong, try again later.");
+        setSubmitError("Bad network connection");
       } finally {
         setLoader(false);
       }
@@ -225,7 +228,7 @@ const AppContextProvider = ({ children }) => {
         }
       } catch (error) {
         console.error(error);
-        setSubmitError("Something went wrong, try again later.");
+        setSubmitError("Bad network connection");
       } finally {
         setLoader(false);
       }
@@ -317,7 +320,7 @@ const AppContextProvider = ({ children }) => {
         }
       } catch (error) {
         console.error(error);
-        setSubmitError("Something went wrong, try again later.");
+        setSubmitError("Something went wrong!");
       } finally {
         setLoader(false);
       }
@@ -446,7 +449,7 @@ const AppContextProvider = ({ children }) => {
         }
       } catch (error) {
         console.error(error);
-        setSubmitError("Something went wrong, try again later.");
+        setSubmitError("Bad network connection");
       } finally {
         setLoader(false);
       }
