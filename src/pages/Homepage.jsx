@@ -20,12 +20,27 @@ const Homepage = () => {
     handleSubmitMedicalData,
     loader,
     userData,
+    medicalDataSubmitSuccess,
   } = useAppContext();
   return (
     <>
       <Header />
       {loader && <Loader />}
-      {medicalDataStatus && (
+      {medicalDataSubmitSuccess && (
+        <div className="w-full h-full fixed top-0 left-0 bg-black/90 p-4 flex justify-center items-center z-40 scale">
+          <div className="w-full sm:w-[550px] flex flex-col gap-4 items-center bg-white rounded-lg p-5">
+            <img
+              alt=""
+              src="/images/icons8-checkmark-64.png"
+              className="w-16 h-16"
+            />
+            <h3 className="font-medium text-[1.1rem] sm:text-[1.3rem] text-center">
+              Medical data submitted Successfully!
+            </h3>
+          </div>
+        </div>
+      )}
+      {!medicalDataStatus && userData?.token && (
         <div className="w-full h-full fixed top-0 left-0 bg-black/90 px-4 py-10 flex justify-center items-center z-40 scale overflow-y-auto">
           <div className="w-full sm:w-[550px] flex flex-col gap-4 items-center bg-white rounded-lg p-6 my-5 overflow-y-auto">
             <img
@@ -66,7 +81,7 @@ const Homepage = () => {
                     <input
                       type="radio"
                       value="coloured"
-                      checked={selectedRace === "coloured"}
+                      checked={selectedRace === "colored"}
                       onChange={handleRaceChange}
                     />{" "}
                     Coloured
@@ -82,26 +97,62 @@ const Homepage = () => {
                   </label>
                 </div>
               </div>
-              <label htmlFor="occupation" className="mb-1">
-                Occupation
-              </label>{" "}
-              <input
-                id="occupation"
-                type="text"
-                onChange={handleMedicalDataChange}
-                placeholder="General Assistant"
-                className="w-full bg-blue-400/10 py-1 px-3 mb-3 rounded-md outline-none border border-blue-400/50"
-              />
-              <label htmlFor="blood_group" className="mb-1">
-                Blood group
-              </label>{" "}
-              <input
-                id="blood_group"
-                type="text"
-                onChange={handleMedicalDataChange}
-                placeholder="O+"
-                className="w-full bg-blue-400/10 py-1 px-3 mb-3 rounded-md outline-none border border-blue-400/50"
-              />
+              <div className="">
+                <label htmlFor="occupation" className="mb-1">
+                  Occupation
+                </label>
+                <br />
+                <select
+                  id="occupation"
+                  defaultValue={"DEFAULT"}
+                  onChange={handleMedicalDataChange}
+                  className="w-full bg-blue-400/10 py-1 px-3 mb-3 rounded-md cursor-pointer outline-none border border-blue-400/50"
+                >
+                  <option value="DEFAULT" disabled hidden>
+                    Select Occupation
+                  </option>
+
+                  <option value="Vendor">Vendor</option>
+                  <option value="Business Owner">Business Owner</option>
+                  <option value="Driver">Driver</option>
+                  <option value="Civil Servant">Civil Servant</option>
+                  <option value="Construction Worker">
+                    Construction Worker
+                  </option>
+                  <option value="Labourer">Labourer</option>
+                  <option value="Student/pupil">Student/pupil</option>
+                  <option value="Educator">Educator</option>
+                  <option value="General Assistant">General Assistant</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Unemployed">Unemployed</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div className="">
+                <label htmlFor="blood_group" className="mb-1">
+                  Blood group
+                </label>
+                <br />
+                <select
+                  id="blood_group"
+                  defaultValue={"DEFAULT"}
+                  onChange={handleMedicalDataChange}
+                  className="w-full bg-blue-400/10 py-1 px-3 mb-3 rounded-md cursor-pointer outline-none border border-blue-400/50"
+                >
+                  <option value="DEFAULT" disabled hidden>
+                    Select blood group
+                  </option>
+
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                  <option value="A-">A-</option>
+                  <option value="A+">A+</option>
+                  <option value="B-">B-</option>
+                  <option value="B+">B+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="AB+">AB+</option>
+                </select>
+              </div>
               <label htmlFor="medical_cases" className="mb-1">
                 Medical cases
               </label>{" "}
@@ -149,7 +200,7 @@ const Homepage = () => {
 
         <section className="w-full py-10 mb-5 text-slate-700 lg:px-[15%] px-5">
           <div className="w-fit mx-auto">
-            <h1 className="text-[1.2rem] sm:text-[2.5rem] font-normal uppercase text-center mb-1">
+            <h1 className="text-[1.2rem] sm:text-[2rem] font-normal uppercase text-center mb-1">
               Meet Our Expert Medical Professionals
             </h1>
             <div className="w-full h-[1px] bg-gradient-to-r from-slate-700 to-white/10"></div>

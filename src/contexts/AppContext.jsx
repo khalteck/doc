@@ -268,9 +268,35 @@ const AppContextProvider = ({ children }) => {
     if (appointment.day && appointment.month && appointment.year) {
       setLoader(true);
 
-      let date = `${appointment.day}-${appointment.month}-${appointment.year}`;
+      let date = `${appointment.day}-${
+        appointment.month === "January"
+          ? "01"
+          : appointment.month === "February"
+          ? "02"
+          : appointment.month === "March"
+          ? "03"
+          : appointment.month === "April"
+          ? "04"
+          : appointment.month === "May"
+          ? "05"
+          : appointment.month === "June"
+          ? "06"
+          : appointment.month === "July"
+          ? "07"
+          : appointment.month === "August"
+          ? "08"
+          : appointment.month === "September"
+          ? "09"
+          : appointment.month === "October"
+          ? "10"
+          : appointment.month === "November"
+          ? "11"
+          : appointment.month === "December"
+          ? "12"
+          : null
+      }-${appointment.year}`;
       try {
-        const formDataToSend = new FormData();
+        const formDataToSend = new URLSearchParams();
         formDataToSend.append("schedule_date", "2023-09-18 10:00:00");
 
         const response = await fetch(
@@ -279,6 +305,7 @@ const AppContextProvider = ({ children }) => {
             method: "POST",
             body: formDataToSend,
             Authorization: `Bearer ${userData?.token}`,
+            "Content-Type": "application/x-www-form-urlencoded",
           }
         );
         const data = await response.json();
@@ -298,6 +325,7 @@ const AppContextProvider = ({ children }) => {
       setSubmitError("Please fill all fields");
     }
   };
+  // console.log(userData?.token);
 
   //to get doctors list   //to get doctors list   //to get doctors list
   //to get doctors list   //to get doctors list   //to get doctors list
@@ -359,6 +387,8 @@ const AppContextProvider = ({ children }) => {
     setSelectedRace(event.target.value);
   };
 
+  const [medicalDataSubmitSuccess, setMedicalDataSubmitSuccess] = useState("");
+
   const handleSubmitMedicalData = async (event) => {
     event.preventDefault();
 
@@ -371,25 +401,46 @@ const AppContextProvider = ({ children }) => {
       setLoader(true);
 
       try {
-        const formDataToSend = new FormData();
-        formDataToSend.append("race", selectedRace);
-        formDataToSend.append("occupation", medicalData.occupation);
-        formDataToSend.append("blood_group", medicalData.blood_group);
-        formDataToSend.append("medical_cases", medicalData.medical_cases);
-        formDataToSend.append("home_address", medicalData.home_address);
+        const formDataToSend = new URLSearchParams();
+        formDataToSend.append("race", selectedRace.toUpperCase());
+        formDataToSend.append(
+          "occupation",
+          medicalData.occupation.toUpperCase()
+        );
+        formDataToSend.append(
+          "blood_group",
+          medicalData.blood_group.toUpperCase()
+        );
+        formDataToSend.append(
+          "medical_cases",
+          medicalData.medical_cases.toUpperCase()
+        );
+        formDataToSend.append(
+          "home_address",
+          medicalData.home_address.toUpperCase()
+        );
 
         const response = await fetch(
-          "https://medico-production-fa1c.up.railway.app/api/api/add/med_data",
+          "https://medico-production-fa1c.up.railway.app/api/add/med_data",
           {
             method: "POST",
             body: formDataToSend,
-            Authorization: `Bearer ${userData?.token}`,
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              Authorization: `Bearer ${userData?.token}`,
+            },
           }
         );
         const data = await response.json();
 
         if (response.ok) {
           console.log(data);
+          localStorage.setItem("medicalDataStatus", JSON.stringify(true));
+          setMedicalDataStatus(true);
+          setMedicalDataSubmitSuccess("success");
+          setTimeout(() => {
+            setMedicalDataSubmitSuccess("");
+          }, 3000);
         } else {
           throw new Error("Server error.");
         }
@@ -403,6 +454,8 @@ const AppContextProvider = ({ children }) => {
       setSubmitError("Please fill all fields");
     }
   };
+
+  // console.log(userData?.token);
 
   //to get medical data status   //to get medical data status   //to get medical data status
   //to get medical data status   //to get medical data status   //to get medical data status
@@ -467,6 +520,7 @@ const AppContextProvider = ({ children }) => {
         handleRaceChange,
         selectedRace,
         handleSubmitMedicalData,
+        medicalDataSubmitSuccess,
       }}
     >
       {children}
