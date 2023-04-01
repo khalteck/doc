@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
 
 const Header = () => {
-  const { currentPage } = useAppContext();
+  const { currentPage, userData, logout } = useAppContext();
 
   const [openMenu, setOpenMenu] = useState(false);
   function handleClick() {
@@ -17,12 +17,13 @@ const Header = () => {
 
   //to show logout tray
   const [showLogout, setShowLogout] = useState(false);
-  function toggleLogoutOn() {
-    setShowLogout(true);
+  function toggleLogout() {
+    setShowLogout((prev) => !prev);
   }
-  function toggleLogoutOff() {
-    setShowLogout(false);
-  }
+
+  // function toggleLogoutOff() {
+  //   setShowLogout(false);
+  // }
 
   const [showDrop, setShowDrop] = useState(false);
 
@@ -30,15 +31,11 @@ const Header = () => {
     setShowDrop((prev) => !prev);
   }
 
-  window.addEventListener("click", () => {
-    setShowLogout(false);
-  });
-
   return (
     <header>
       {/* desktop header */}
       <div
-        className={`sm:w-full md:w-full top-0 bg-white lg:px-[15%] px-12 py-3 fixed left-[50%] translate-x-[-50%] md:flex items-center z-[50] hidden transition-all duration-500 shadow-md`}
+        className={`sm:w-full md:w-full top-0 bg-white lg:px-[15%] px-12 py-3 fixed left-[50%] translate-x-[-50%] md:flex items-center z-30 hidden transition-all duration-500 shadow-md`}
       >
         <Link to="/" className="mr-auto">
           {/* <img alt="" src="/images/logo.png" className="w-28 h-20" /> */}
@@ -56,62 +53,6 @@ const Header = () => {
             >
               Home
             </Link>
-
-            {/* <div
-              onMouseOut={toggleLogoutOff}
-              onMouseOver={toggleLogoutOn}
-              className="relative flex gap-1 items-center cursor-pointer px-2 py-1 rounded-md hover:bg-[#3b82f6] hover:text-black hover:translate-y-[6px] transition-all duration-300"
-            >
-              <div className={` whitespace-nowrap `}>Personnels</div>
-              <img
-                alt=""
-                src="/images/icons8-sort-down-50.png"
-                className="w-3 h-3"
-              />
-              {showLogout && (
-                <ul
-                  onMouseOver={toggleLogoutOn}
-                  onMouseOut={toggleLogoutOff}
-                  className={`w-[200px] bg-white px-4 py-3 absolute top-[30px] left-[-20px] transition-all duration-500`}
-                >
-                  <Link to="/product/Compact%20home%20UPSs">
-                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-black/50">
-                      Doc1{" "}
-                    </li>
-                  </Link>
-                  <Link to="/product/Office%20&%20IT%20UPSs">
-                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-black/50">
-                      Doc2{" "}
-                    </li>
-                  </Link>
-                  <Link to="/product/Modular%20UPSs">
-                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-black/50">
-                      Doc3{" "}
-                    </li>
-                  </Link>
-                  <Link to="/product/Industrial%20UPSs">
-                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-black/50">
-                      Doc4{" "}
-                    </li>
-                  </Link>
-                  <Link to="/product/Custom%20solutions">
-                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-black/50">
-                      Doc5{" "}
-                    </li>
-                  </Link>
-                  <Link to="/product/Switching%20systems">
-                    <li className="border-b border-slate-600/40 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-black/50">
-                      Doc6{" "}
-                    </li>
-                  </Link>
-                  <Link to="/product/Software%20&%20communication">
-                    <li className="py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
-                      Doc7{" "}
-                    </li>
-                  </Link>
-                </ul>
-              )}
-            </div> */}
             <Link
               to="/appointments"
               className={`cursor-pointer px-2 py-1 ${
@@ -135,38 +76,96 @@ const Header = () => {
             >
               Contact
             </div>
-            <Link to="/login">
+            {!userData?.token && (
+              <>
+                <Link to="/login">
+                  <div
+                    className={`cursor-pointer px-2 py-1 ${
+                      currentPage === "/login" && "bg-[#3b82f6] text-white"
+                    } rounded-md hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
+                  >
+                    Login
+                  </div>
+                </Link>
+                <Link to="/register">
+                  <div
+                    className={`cursor-pointer px-2 py-1 ${
+                      currentPage === "/register" && "bg-[#3b82f6] text-white"
+                    } rounded-md hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
+                  >
+                    Register
+                  </div>
+                </Link>
+              </>
+            )}
+            {userData?.token && (
               <div
-                className={`cursor-pointer px-2 py-1 ${
-                  currentPage === "/login" && "bg-[#3b82f6] text-white"
-                } rounded-md hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
+                onClick={toggleLogout}
+                className="py-2 px-5 border-2 border-blue-500 bg-blue-400/30 flex gap-3 rounded-sm cursor-pointer relative"
               >
-                Login
+                <p className="whitespace-nowrap">Logged in:</p>
+                <div className="flex gap-2">
+                  <div className="text-blue-500 font-bold">
+                    {userData?.first_name}
+                  </div>
+                  <img
+                    alt=""
+                    src="/images/icons8-sort-down-26.png"
+                    className={`${
+                      showLogout ? "rotate-180" : "rotate-0"
+                    } w-4 h-4 transition-all duration-300`}
+                  />
+                </div>
+                {showLogout && (
+                  <ul className="w-full absolute top-[65px] left-0 bg-white slide">
+                    <li onClick={logout} className="p-4 hover:bg-blue-500/30">
+                      Log out
+                    </li>
+                  </ul>
+                )}
               </div>
-            </Link>
-            <Link to="/register">
-              <div
-                className={`cursor-pointer px-2 py-1 ${
-                  currentPage === "/register" && "bg-[#3b82f6] text-white"
-                } rounded-md hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
-              >
-                Register
-              </div>
-            </Link>
+            )}
           </div>
         </nav>
       </div>
 
       {/* mobile header */}
       <div
-        className={`top-0 bg-white  md:hidden w-full h-[65px] px-6 fixed left-0 z-[100] border-b-[0px] border-b-[#47a3b3] flex justify-between items-center shadow-md transition-all duration-500`}
+        className={`top-0 bg-white  md:hidden w-full h-[65px] px-6 fixed left-0 z-30 border-b-[0px] border-b-[#47a3b3] flex justify-between items-center shadow-md transition-all duration-500`}
       >
         <Link to="/" className="mr-auto">
           {/* <img alt="" src="/images/logo.png" className="w-16 h-auto" /> */}
-          <div className="font-bold border border-slate-700 p-2">
-            Company Logo
-          </div>
+          <div className="font-bold border border-slate-700 p-2">Logo</div>
         </Link>
+        {userData?.token && (
+          <div
+            onClick={toggleOnOff}
+            className="flex items-center border border-blue-500 rounded-full px-2 py-1 mr-3 text-[0.75rem]"
+          >
+            <img
+              alt=""
+              src="/images/icons8-user-67.png"
+              className="w-5 h-5 mr-2"
+            />
+            <img
+              alt=""
+              src="/images/icons8-sort-down-26.png"
+              className={`${
+                showDrop ? "rotate-180" : "rotate-0"
+              } w-3 h-3 transition-all duration-300`}
+            />
+            {showDrop && (
+              <ul className="w-[180px] absolute top-[65px] bg-white slide">
+                <li className="p-2 border-b border-slate-500 bg-blue-400/30">
+                  {userData?.first_name}
+                </li>
+                <li onClick={logout} className="p-2">
+                  Log out
+                </li>
+              </ul>
+            )}
+          </div>
+        )}
         <img
           alt="hamburger"
           src="/images/icons8-menu-30.png"
@@ -195,79 +194,6 @@ const Header = () => {
                   <div className="w-full">Home</div>
                 </Link>
               </li>
-              {/* <li onClick={toggleOnOff} className="mt-4">
-                <div className="w-full flex gap-2 items-center relative">
-                  <div className="">Personnels</div>
-                  <img
-                    alt=""
-                    src="/images/icons8-sort-down-white-50.png"
-                    className={`${
-                      showDrop ? "rotate-180" : ""
-                    } w-4 h-4 transition-all duration-500`}
-                  />
-                </div>
-              </li> */}
-              {/* {showDrop && (
-                <li className="transition-all duration-500">
-                  <ul
-                    className={`w-[200px] bg-transparent px-4 py-3 text-white text-[.85rem]`}
-                  >
-                    <Link
-                      onClick={hideDropdown}
-                      to="/product/Compact%20home%20UPSs"
-                    >
-                      <li className="border-y border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
-                        Compact Home UPSs
-                      </li>
-                    </Link>
-                    <Link
-                      onClick={hideDropdown}
-                      to="/product/Office%20&%20IT%20UPSs"
-                    >
-                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
-                        Office & IT UPSs
-                      </li>
-                    </Link>
-                    <Link onClick={hideDropdown} to="/product/Modular%20UPSs">
-                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
-                        Modular UPSs
-                      </li>
-                    </Link>
-                    <Link
-                      onClick={hideDropdown}
-                      to="/product/Industrial%20UPSs"
-                    >
-                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
-                        Industrial UPSs
-                      </li>
-                    </Link>
-                    <Link
-                      onClick={hideDropdown}
-                      to="/product/Custom%20solutions"
-                    >
-                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
-                        Custom Solutions
-                      </li>
-                    </Link>
-                    <Link
-                      onClick={hideDropdown}
-                      to="/product/Switching%20systems"
-                    >
-                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
-                        Switching Systems
-                      </li>
-                    </Link>
-                    <Link
-                      onClick={hideDropdown}
-                      to="/product/Software%20&%20communication"
-                    >
-                      <li className="border-b border-white/20 py-2 px-2 cursor-pointer hover:bg-[#3b82f6] hover:text-white/50">
-                        Software & Communications
-                      </li>
-                    </Link>
-                  </ul>
-                </li>
-              )} */}
               <li className="my-4">
                 <Link to="/appointments" onClick={hideDropdown}>
                   <div className="w-full">Appointments</div>
@@ -289,16 +215,35 @@ const Header = () => {
                   <div className="w-full">Contact</div>
                 </Link>
               </li>
-              <li className="my-4">
-                <Link to="/login" onClick={hideDropdown}>
-                  <div className="w-full">login</div>
-                </Link>
+              {!userData?.token && (
+                <>
+                  <li className="my-4">
+                    <Link to="/login" onClick={hideDropdown}>
+                      <div className="w-full">login</div>
+                    </Link>
+                  </li>
+                  <li className="my-4">
+                    <Link to="/register" onClick={hideDropdown}>
+                      <div className="w-full">register</div>
+                    </Link>
+                  </li>
+                </>
+              )}
+              {/* {userData?.token && (
+              <li className="py-2 px-5 border-2 border-blue-500 bg-blue-400/30 flex gap-3 rounded-sm cursor-pointer">
+                <div className="whitespace-nowrap">Logged in:</div>
+                <div className="flex gap-2">
+                  <div className="text-blue-500 font-bold">
+                    {userData?.first_name}
+                  </div>
+                  <img
+                    alt=""
+                    src="/images/icons8-sort-down-26.png"
+                    className="w-4 h-4"
+                  />
+                </div>
               </li>
-              <li className="my-4">
-                <Link to="/register" onClick={hideDropdown}>
-                  <div className="w-full">register</div>
-                </Link>
-              </li>
+            )} */}
             </ul>
           </div>
         )}

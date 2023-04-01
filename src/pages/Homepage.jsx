@@ -5,11 +5,143 @@ import Slideshow from "../components/Slideshow";
 import doctorsData from "../data/Doctors.json";
 import ScrollToTop from "../ScrollToTop";
 import Footer from "../components/Footer";
+import { useAppContext } from "../contexts/AppContext";
+import Loader from "../components/Loader";
+import DoctorsCardOffline from "../components/DoctorsCardOffline";
 
 const Homepage = () => {
+  const {
+    doctors,
+    medicalDataStatus,
+    submitError,
+    handleMedicalDataChange,
+    handleRaceChange,
+    selectedRace,
+    handleSubmitMedicalData,
+    loader,
+    userData,
+  } = useAppContext();
   return (
     <>
       <Header />
+      {loader && <Loader />}
+      {medicalDataStatus && (
+        <div className="w-full h-full fixed top-0 left-0 bg-black/90 px-4 py-10 flex justify-center items-center z-40 scale overflow-y-auto">
+          <div className="w-full sm:w-[550px] flex flex-col gap-4 items-center bg-white rounded-lg p-6 my-5 overflow-y-auto">
+            <img
+              alt=""
+              src="/images/icons8-info-black-64.png"
+              className="w-10 h-10"
+            />
+            <h3 className="font-medium text-[1.1rem] sm:text-[1.3rem] text-center">
+              Medical data form
+            </h3>
+            <p className="text-center">
+              Complete your registration by submitting your medical data.
+            </p>
+            <form className="w-full">
+              <div className="mb-3">
+                <p>Select Race</p>
+
+                <div className="flex gap-2">
+                  <label>
+                    <input
+                      type="radio"
+                      value="black"
+                      checked={selectedRace === "black"}
+                      onChange={handleRaceChange}
+                    />{" "}
+                    Black
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      value="white"
+                      checked={selectedRace === "white"}
+                      onChange={handleRaceChange}
+                    />{" "}
+                    White
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      value="coloured"
+                      checked={selectedRace === "coloured"}
+                      onChange={handleRaceChange}
+                    />{" "}
+                    Coloured
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      value="other"
+                      checked={selectedRace === "other"}
+                      onChange={handleRaceChange}
+                    />{" "}
+                    Other
+                  </label>
+                </div>
+              </div>
+              <label htmlFor="occupation" className="mb-1">
+                Occupation
+              </label>{" "}
+              <input
+                id="occupation"
+                type="text"
+                onChange={handleMedicalDataChange}
+                placeholder="General Assistant"
+                className="w-full bg-blue-400/10 py-1 px-3 mb-3 rounded-md outline-none border border-blue-400/50"
+              />
+              <label htmlFor="blood_group" className="mb-1">
+                Blood group
+              </label>{" "}
+              <input
+                id="blood_group"
+                type="text"
+                onChange={handleMedicalDataChange}
+                placeholder="O+"
+                className="w-full bg-blue-400/10 py-1 px-3 mb-3 rounded-md outline-none border border-blue-400/50"
+              />
+              <label htmlFor="medical_cases" className="mb-1">
+                Medical cases
+              </label>{" "}
+              <input
+                id="medical_cases"
+                type="text"
+                onChange={handleMedicalDataChange}
+                placeholder="Low Blood Sugar, Acute Malaria"
+                className="w-full bg-blue-400/10 py-1 px-3 mb-3 rounded-md outline-none border border-blue-400/50"
+              />
+              <label htmlFor="home_address" className="mb-1">
+                Home address
+              </label>{" "}
+              <input
+                id="home_address"
+                type="text"
+                onChange={handleMedicalDataChange}
+                placeholder="987H, Manhattan City, Miami, USA"
+                className="w-full bg-blue-400/10 py-1 px-3 mb-3 rounded-md outline-none border border-blue-400/50"
+              />
+              {submitError && (
+                <div className="w-full flex gap-4 items-center py-3 px-10 my-2 bg-red-400/20 text-[0.85rem] rounded-lg border border-red-400">
+                  <img
+                    alt=""
+                    src="/images/icons8-medium-risk-50.png"
+                    className="w-6 h-6 mr-1"
+                  />
+                  <p>{submitError}</p>
+                </div>
+              )}
+              <button
+                onClick={handleSubmitMedicalData}
+                className="w-full bg-blue-500 text-white my-4 p-3 outline-none rounded-lg"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
       <main className="w-full min-h-screen bg-blue-50 pt-16 sm:pt-20">
         <section className="w-full h-[300px] sm:h-[450px] bg-black/20">
           <Slideshow />
@@ -40,11 +172,20 @@ const Homepage = () => {
               Select a medical personnel to book an appointment
             </p>
           </div>
-          <div className="w-full grid sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-10">
-            {doctorsData?.map((item, index) => {
-              return <DoctorsCard key={index} item={item} />;
-            })}
-          </div>
+          {userData?.token && (
+            <div className="w-full grid sm:grid-cols-3 lg:grid-cols-3 gap-4 mt-10">
+              {doctors?.map((item, index) => {
+                return <DoctorsCard key={index} item={item} />;
+              })}
+            </div>
+          )}
+          {!userData?.token && (
+            <div className="w-full grid sm:grid-cols-3 lg:grid-cols-3 gap-4 mt-10">
+              {doctorsData?.map((item, index) => {
+                return <DoctorsCardOffline key={index} item={item} />;
+              })}
+            </div>
+          )}
         </section>
 
         <section className="w-full min-h-[300px] bg-[#262727] py-20 text-slate-700 lg:px-[15%] px-5 font-light">
@@ -86,7 +227,7 @@ const Homepage = () => {
             <div className="w-full sm:w-1/3 items-center sm:items-start flex gap-3 mb-16 sm:mb-0">
               <img
                 alt=""
-                src="/images/icons8-person-calendar-50.png"
+                src="/images/icons8-appointment-scheduling-50.png"
                 className="w-10 h-10"
               />
               <div className="text-center sm:text-start">
@@ -104,7 +245,7 @@ const Homepage = () => {
             <div className="w-full sm:w-1/3 items-center sm:items-start flex gap-3 sm:mb-0">
               <img
                 alt=""
-                src="/images/icons8-advice-50.png"
+                src="/images/icons8-medical-doctor-50.png"
                 className="w-10 h-10"
               />
               <div className="text-center sm:text-start">

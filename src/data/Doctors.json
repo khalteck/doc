@@ -2,41 +2,16 @@
   {
     "id": 1,
     "image": "/images/doc1.jpg",
-    "name": "Dr. James Chen1"
+    "name": "Dr. James Chen"
   },
   {
     "id": 2,
     "image": "/images/doc2.jpg",
-    "name": "Dr. Sarah Lee1"
+    "name": "Dr. Sarah Lee"
   },
   {
     "id": 3,
     "image": "/images/doc3.jpg",
-    "name": "Dr. Jennifer Nguyen1"
-  },
-  {
-    "id": 4,
-    "image": "/images/doc1.jpg",
-    "name": "Dr. James Chen2"
-  },
-  {
-    "id": 5,
-    "image": "/images/doc2.jpg",
-    "name": "Dr. Sarah Lee2"
-  },
-  {
-    "id": 6,
-    "image": "/images/doc3.jpg",
-    "name": "Dr. Jennifer Nguyen2"
-  },
-  {
-    "id": 7,
-    "image": "/images/doc1.jpg",
-    "name": "Dr. James Chen3"
-  },
-  {
-    "id": 8,
-    "image": "/images/doc2.jpg",
-    "name": "Dr. Sarah Lee3"
+    "name": "Dr. Jennifer Nguyen"
   }
 ]

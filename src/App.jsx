@@ -1,26 +1,31 @@
 import { Routes, Route } from "react-router-dom";
 import "./output.css";
 import Homepage from "./pages/Homepage";
-// import { useAppContext } from "./contexts/AppContext";
 import { lazy, Suspense } from "react";
 import Loader from "./components/Loader";
-// import Login from "./pages/Login";
-// import Register from "./pages/Register";
-// import Doctor from "./pages/Doctor";
+import { useAppContext } from "./contexts/AppContext";
 
 const About = lazy(() => import("./pages/About"));
 const Doctor = lazy(() => import("./pages/Doctor"));
+const Appointments = lazy(() => import("./pages/Appointments"));
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
 
 function App() {
-  // const { user, admin, activeRidesFromDb } = useAppContext();
+  const { userData } = useAppContext();
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<About />} />
-        <Route path="/doctor/:name" element={<Doctor />} />
+        <Route
+          path="/appointments"
+          element={userData?.token ? <Appointments /> : <Login />}
+        />
+        <Route
+          path="/doctor/:name"
+          element={userData?.token ? <Doctor /> : <Login />}
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
 

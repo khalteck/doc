@@ -12,8 +12,8 @@ export default function Footer() {
     marginLeft: 0,
   };
   return (
-    <footer>
-      <div className="footer">
+    <footer className="border-t botder-white/10">
+      <div className="footer lg:px-[15%] px-5">
         <div className="logo--div flex">
           <h1 className="font-bold text-[2rem]">Company Name </h1>
           <div className="logo--cont flex items-center space-x-3">
