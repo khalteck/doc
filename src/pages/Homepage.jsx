@@ -211,18 +211,20 @@ const Homepage = () => {
             patient-centered approach and commitment to the latest research, we
             offer exceptional care. Explore their profiles below.
           </p>
-          <div className=" mt-4 flex gap-1 items-center justify-center mb-3">
-            <div className="bg-[#3b82f6]/50 rounded-full flex justify-center items-center">
-              <img
-                alt=""
-                src="/images/icons8-information-64.png"
-                className="w-4 h-4"
-              />
+          {(!userData?.token || userData?.is_patient) && (
+            <div className=" mt-4 flex gap-1 items-center justify-center mb-3">
+              <div className="bg-[#3b82f6]/50 rounded-full flex justify-center items-center">
+                <img
+                  alt=""
+                  src="/images/icons8-information-64.png"
+                  className="w-4 h-4"
+                />
+              </div>
+              <p className="text-[0.75rem] bg-[#3b82f6]/20 px-2 py-[1px] rounded-full">
+                Select a medical personnel to book an appointment
+              </p>
             </div>
-            <p className="text-[0.75rem] bg-[#3b82f6]/20 px-2 py-[1px] rounded-full">
-              Select a medical personnel to book an appointment
-            </p>
-          </div>
+          )}
           {userData?.token && (
             <div className="w-full grid sm:grid-cols-3 lg:grid-cols-3 gap-4 mt-10">
               {doctors?.map((item, index) => {

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
 
 const Header = () => {
-  const { currentPage, userData, logout } = useAppContext();
+  const { currentPage, userData, logout, loggedOut } = useAppContext();
 
   const [openMenu, setOpenMenu] = useState(false);
   function handleClick() {
@@ -72,13 +72,13 @@ const Header = () => {
             >
               About us
             </Link>
-            <div
+            {/* <div
               className={`cursor-pointer px-2 py-1 ${
                 currentPage === "/contact" && "bg-[#3b82f6] text-white"
               } rounded-md hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
             >
               Contact
-            </div>
+            </div> */}
             {!userData?.token && (
               <>
                 <Link to="/login">
@@ -120,7 +120,7 @@ const Header = () => {
                   />
                 </div>
                 {showLogout && (
-                  <ul className="w-full absolute top-[65px] left-0 bg-white slide">
+                  <ul className="w-full border absolute top-[65px] left-0 bg-white slide">
                     <li onClick={logout} className="p-4 hover:bg-blue-500/30">
                       Log out
                     </li>
@@ -163,7 +163,7 @@ const Header = () => {
               } w-3 h-3 transition-all duration-300`}
             />
             {showDrop && (
-              <ul className="w-[180px] absolute top-[65px] bg-white slide">
+              <ul className="w-[180px] absolute top-[65px] bg-white shadow-md slide">
                 <li className="p-2 border-b border-slate-500 bg-blue-400/30">
                   {userData?.first_name}
                 </li>
@@ -212,7 +212,7 @@ const Header = () => {
                   <div className="w-full">About Us</div>
                 </Link>
               </li>
-              <li className="my-4">
+              {/* <li className="my-4">
                 <Link
                   to="/"
                   onClick={(e) => {
@@ -222,7 +222,7 @@ const Header = () => {
                 >
                   <div className="w-full">Contact</div>
                 </Link>
-              </li>
+              </li> */}
               {!userData?.token && (
                 <>
                   <li className="my-4">
@@ -257,6 +257,21 @@ const Header = () => {
         )}
       </div>
       {/*mobile header */}
+
+      {loggedOut && (
+        <div className="w-full h-full fixed top-0 left-0 bg-black/90 p-4 flex justify-center items-center z-40 scale">
+          <div className="w-full sm:w-[550px] flex flex-col gap-4 items-center bg-white rounded-lg p-5">
+            <img
+              alt=""
+              src="/images/icons8-info-black-64.png"
+              className="w-10 h-10"
+            />
+            <h3 className="font-medium text-[1.1rem] sm:text-[1.3rem] text-center">
+              Logged out!
+            </h3>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

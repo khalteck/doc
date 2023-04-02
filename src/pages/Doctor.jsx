@@ -175,7 +175,7 @@ const Doctor = () => {
                     Set appointment time <span className="text-red-600">*</span>
                   </label>{" "}
                   <br />
-                  <div className="w-full flex items-center gap-4 mt-2 mb-4">
+                  <div className="w-full flex items-center gap-4 mb-4">
                     <input
                       id="hour"
                       type="number"
@@ -205,6 +205,29 @@ const Doctor = () => {
                       <option value="PM">PM</option>
                     </select>
                   </div>
+                </div>
+                <div>
+                  <label htmlFor="medical_issue" className="">
+                    Medical Issue <span className="text-red-600">*</span>
+                  </label>{" "}
+                  <input
+                    id="medical_issue"
+                    type="text"
+                    onChange={handleAppointmentChange}
+                    placeholder="Malaria"
+                    className="w-full bg-blue-400/10 py-1 px-3 mb-3 rounded-md outline-none border border-blue-400/50"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="referral_letter" className="">
+                    Referral letter <span className="text-red-600">*</span>
+                  </label>{" "}
+                  <input
+                    id="referral_letter"
+                    type="file"
+                    onChange={handleAppointmentChange}
+                    className="w-full bg-blue-400/10 py-1 px-3 mb-3 rounded-md outline-none border border-blue-400/50"
+                  />
                 </div>
                 {submitError && (
                   <div className="w-full flex gap-4 items-center py-3 px-10 my-2 bg-red-400/20 text-[0.85rem] rounded-lg border border-red-400">

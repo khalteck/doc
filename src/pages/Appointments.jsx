@@ -5,7 +5,7 @@ import { useAppContext } from "../contexts/AppContext";
 import ScrollToTop from "../ScrollToTop";
 
 const Appointments = () => {
-  const { loader } = useAppContext();
+  const { loader, userData } = useAppContext();
   return (
     <>
       <Header />
@@ -17,6 +17,17 @@ const Appointments = () => {
           </h1>
           <div className="w-full h-[1px] bg-gradient-to-r from-slate-700 to-white/10"></div>
         </div>
+        {userData?.is_patient ? (
+          <p className="mt-5 text-center">
+            Welcome {userData?.first_name}! View your scheduled appointments
+            here.
+          </p>
+        ) : (
+          <p className="mt-5 text-center">
+            Welcome Dr. {userData?.first_name} {userData?.last_name}! You can
+            view your scheduled appointments here..
+          </p>
+        )}
         <div className="w-full min-h-[300px] bg-blue-400/10 my-8 rounded-lg flex justify-center items-center">
           <div className="text-center">
             <img alt="" src="/images/empty.png" className="w-24 h-24 mx-auto" />

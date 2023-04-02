@@ -238,12 +238,19 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
+  const [loggedOut, setLoggedOut] = useState(false);
+
   function logout() {
     localStorage.removeItem("userData");
     localStorage.removeItem("medicalDataStatus");
     localStorage.removeItem("doctors");
     setUserData({});
+    navigate("/");
     window.scrollTo(0, 0);
+    setLoggedOut(true);
+    setTimeout(() => {
+      setLoggedOut(false);
+    }, 3000);
   }
 
   //to submit appointments   //to submit appointments   //to submit appointments
@@ -256,6 +263,8 @@ const AppContextProvider = ({ children }) => {
     hour: "",
     minute: "",
     ampm: "",
+    medical_issue: "",
+    referral_letter: "",
   });
   // console.log(appointment?.day.split("").length);
 
@@ -276,7 +285,13 @@ const AppContextProvider = ({ children }) => {
   const handleSubmitAppointment = async (event, id) => {
     event.preventDefault();
 
-    if (appointment.day && appointment.month && appointment.year) {
+    if (
+      appointment.day &&
+      appointment.month &&
+      appointment.year &&
+      appointment.medical_issue &&
+      appointment.referral_letter
+    ) {
       setLoader(true);
 
       let date = `${appointment.year}-${
@@ -315,7 +330,10 @@ const AppContextProvider = ({ children }) => {
       try {
         const formDataToSend = {
           schedule_date: `${date} ${time24Hour}`,
+          medical_issue: appointment.medical_issue,
+          referral_letter: appointment.referral_letter,
         };
+        console.log(formDataToSend);
 
         const response = await fetch(
           `https://medico-production-fa1c.up.railway.app/api/create/appointment/${id}`,
@@ -548,6 +566,7 @@ const AppContextProvider = ({ children }) => {
         handleSubmitMedicalData,
         medicalDataSubmitSuccess,
         appointmentSuccess,
+        loggedOut,
       }}
     >
       {children}
