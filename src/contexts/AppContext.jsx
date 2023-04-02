@@ -273,7 +273,7 @@ const AppContextProvider = ({ children }) => {
   const [appointmentSuccess, setAppointmentSuccess] = useState("");
   // console.log(appointmentSuccess);
 
-  const handleSubmitAppointment = async (event) => {
+  const handleSubmitAppointment = async (event, id) => {
     event.preventDefault();
 
     if (appointment.day && appointment.month && appointment.year) {
@@ -318,7 +318,7 @@ const AppContextProvider = ({ children }) => {
         };
 
         const response = await fetch(
-          "https://medico-production-fa1c.up.railway.app/api/create/appointment/2",
+          `https://medico-production-fa1c.up.railway.app/api/create/appointment/${id}`,
           {
             method: "POST",
             body: JSON.stringify(formDataToSend),
@@ -384,6 +384,7 @@ const AppContextProvider = ({ children }) => {
       getDoctors();
     }
   }, [userData]);
+  // console.log(doctors);
 
   //to submit medical data status   //to submit medical data status   //to submit medical data status
   //to submit medical data status   //to submit medical data status   //to submit medical data status
