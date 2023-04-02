@@ -242,7 +242,7 @@ const Homepage = () => {
         <section className="w-full min-h-[300px] bg-[#262727] py-20 text-slate-700 lg:px-[15%] px-5 font-light">
           <div className="w-fit mx-auto mb-10">
             <h1 className="text-[1.5rem] sm:text-[2.5rem] font-normal uppercase text-center mb-1 text-white">
-              Company name
+              What We Do{" "}
             </h1>
             <div className="w-full h-[1px] bg-gradient-to-r from-[#3b82f6] to-white/10"></div>
           </div>
@@ -315,7 +315,7 @@ const Homepage = () => {
           </div>
         </section>
         {/* <section className="w-full border-t border-white/30 py-8 text-[.75rem] md:text-[.9rem] text-center bg-[#262727] text-white font-light">
-          Copyright © Company name 2023
+          Copyright © HealthoR 2023
         </section> */}
       </main>
       <Footer />

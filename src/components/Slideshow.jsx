@@ -29,9 +29,7 @@ const Slideshow = () => {
           <section className="slide1 h-[300px] sm:h-[450px] relative ">
             <div className="overlay lg:px-[15%] px-5 py-10 lg:p-[80px] flex items-center">
               <div className="text-white font-light">
-                <h1 className="text-[1.75rem] sm:text-[2.6rem]">
-                  Company Name
-                </h1>
+                <h1 className="text-[1.75rem] sm:text-[2.6rem]">HealthoR</h1>
                 <div className="w-full h-[1px] bg-gradient-to-r from-white to-white/10"></div>
                 <p className="text-[.8rem] sm:text-[1.3rem] mt-2 mb-5">
                   Get the best medical advices from our team of professionals...

@@ -39,8 +39,11 @@ const Header = () => {
       >
         <Link to="/" className="mr-auto">
           {/* <img alt="" src="/images/logo.png" className="w-28 h-20" /> */}
-          <div className="font-bold border border-slate-700 p-4">
-            Company Logo
+          <div className="flex items-center gap-2">
+            <img alt="" src="/images/logo.png" className="w-14 h-14" />
+            <div className="font-bold text-[1.25rem] md:text-[1.75rem]">
+              HealthoR
+            </div>
           </div>
         </Link>
         <nav className="flex items-center uppercase">
@@ -135,7 +138,12 @@ const Header = () => {
       >
         <Link to="/" className="mr-auto">
           {/* <img alt="" src="/images/logo.png" className="w-16 h-auto" /> */}
-          <div className="font-bold border border-slate-700 p-2">Logo</div>
+          <div className="flex items-center gap-2">
+            <img alt="" src="/images/logo.png" className="w-8 h-8" />
+            <div className="font-bold text-[1.25rem] md:text-[1.75rem]">
+              HealthoR
+            </div>
+          </div>{" "}
         </Link>
         {userData?.token && (
           <div

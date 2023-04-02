@@ -1,3 +1,4 @@
+import moment from "moment";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -252,7 +253,11 @@ const AppContextProvider = ({ children }) => {
     day: "",
     month: "",
     year: "",
+    hour: "",
+    minute: "",
+    ampm: "",
   });
+  // console.log(appointment?.day.split("").length);
 
   function handleAppointmentChange(event) {
     const { id, value } = event.target;
@@ -265,13 +270,16 @@ const AppContextProvider = ({ children }) => {
     });
   }
 
+  const [appointmentSuccess, setAppointmentSuccess] = useState("");
+  // console.log(appointmentSuccess);
+
   const handleSubmitAppointment = async (event) => {
     event.preventDefault();
 
     if (appointment.day && appointment.month && appointment.year) {
       setLoader(true);
 
-      let date = `${appointment.day}-${
+      let date = `${appointment.year}-${
         appointment.month === "January"
           ? "01"
           : appointment.month === "February"
@@ -297,24 +305,38 @@ const AppContextProvider = ({ children }) => {
           : appointment.month === "December"
           ? "12"
           : null
-      }-${appointment.year}`;
+      }-${
+        appointment?.day.split("").length === 1
+          ? `0${appointment.day}`
+          : appointment.day
+      }`;
+      let time = `${appointment.hour}:${appointment.minute} ${appointment.ampm}`;
+      const time24Hour = moment(time, "hh:mm A").format("HH:mm:ss");
       try {
-        const formDataToSend = new URLSearchParams();
-        formDataToSend.append("schedule_date", "2023-09-18 10:00:00");
+        const formDataToSend = {
+          schedule_date: `${date} ${time24Hour}`,
+        };
 
         const response = await fetch(
           "https://medico-production-fa1c.up.railway.app/api/create/appointment/2",
           {
             method: "POST",
-            body: formDataToSend,
-            Authorization: `Bearer ${userData?.token}`,
-            "Content-Type": "application/x-www-form-urlencoded",
+            body: JSON.stringify(formDataToSend),
+            headers: {
+              Authorization: `Bearer ${userData?.token}`,
+              "Content-Type": "application/json",
+            },
           }
         );
         const data = await response.json();
 
         if (response.ok) {
           console.log(data);
+          setAppointmentSuccess(data?.message);
+          setTimeout(() => {
+            setAppointmentSuccess("");
+            navigate("/appointments");
+          }, 3000);
         } else {
           throw new Error("Server error.");
         }
@@ -524,6 +546,7 @@ const AppContextProvider = ({ children }) => {
         selectedRace,
         handleSubmitMedicalData,
         medicalDataSubmitSuccess,
+        appointmentSuccess,
       }}
     >
       {children}

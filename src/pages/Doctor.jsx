@@ -15,6 +15,7 @@ const Doctor = () => {
     submitError,
     handleAppointmentChange,
     handleSubmitAppointment,
+    appointmentSuccess,
   } = useAppContext();
 
   const { name } = useParams();
@@ -31,6 +32,20 @@ const Doctor = () => {
     <>
       <Header />
       {loader && <Loader />}
+      {appointmentSuccess && (
+        <div className="w-full h-full fixed top-0 left-0 bg-black/90 p-4 flex justify-center items-center z-40 scale">
+          <div className="w-full sm:w-[550px] flex flex-col gap-4 items-center bg-white rounded-lg p-5">
+            <img
+              alt=""
+              src="/images/icons8-checkmark-64.png"
+              className="w-16 h-16"
+            />
+            <h3 className="font-medium text-[1.1rem] sm:text-[1.3rem] text-center">
+              {appointmentSuccess}
+            </h3>
+          </div>
+        </div>
+      )}
       <section className="w-full min-h-[700px] mt-[80px] py-4 md:py-10 text-slate-700 lg:px-[15%] px-5 font-light">
         <div className="w-fit mx-auto mb-10">
           <h1 className="font-bold text-[1.25rem] md:text-[1.75rem] text-center mb-1">
@@ -142,7 +157,7 @@ const Doctor = () => {
                     <option value="August">August</option>
                     <option value="September">September</option>
                     <option value="October">October</option>
-                    <option value="Novenber">Novenber</option>
+                    <option value="November">November</option>
                     <option value="December">December</option>
                   </select>
                   <input
@@ -152,6 +167,42 @@ const Doctor = () => {
                     onChange={handleAppointmentChange}
                     className="w-1/3 h-fit bg-blue-400/10 py-1 px-3 rounded-md outline-none border border-blue-400/50"
                   />
+                </div>
+                <div>
+                  <label className="">
+                    Set appointment time <span className="text-red-600">*</span>
+                  </label>{" "}
+                  <br />
+                  <div className="w-full flex items-center gap-4 mt-2 mb-4">
+                    <input
+                      id="hour"
+                      type="number"
+                      placeholder="8"
+                      onChange={handleAppointmentChange}
+                      className="w-1/3 h-fit bg-blue-400/10 py-1 px-3 rounded-md outline-none border border-blue-400/50"
+                    />
+                    <p className="font-bold text-[1.5rem]">:</p>
+                    <input
+                      id="minute"
+                      type="number"
+                      placeholder="00"
+                      onChange={handleAppointmentChange}
+                      className="w-1/3 h-fit bg-blue-400/10 py-1 px-3 rounded-md outline-none border border-blue-400/50"
+                    />
+                    <select
+                      id="ampm"
+                      defaultValue={"DEFAULT"}
+                      onChange={handleAppointmentChange}
+                      className="w-1/3 bg-blue-400/10 py-1 px-3 rounded-md cursor-pointer outline-none border border-blue-400/50"
+                    >
+                      <option value="DEFAULT" disabled hidden>
+                        AM or PM
+                      </option>
+
+                      <option value="AM">AM</option>
+                      <option value="PM">PM</option>
+                    </select>
+                  </div>
                 </div>
                 {submitError && (
                   <div className="w-full flex gap-4 items-center py-3 px-10 my-2 bg-red-400/20 text-[0.85rem] rounded-lg border border-red-400">
