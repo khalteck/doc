@@ -67,12 +67,12 @@ const AppContextProvider = ({ children }) => {
         const data = await response.json();
 
         if (response.ok) {
-          console.log(data);
+          // console.log(data);
           setRegisterSuccess("registered as a patient");
         } else {
           if (response.status === 400) {
             setSubmitError(data.message);
-            console.log(data);
+            // console.log(data);
           } else {
             throw new Error("Server error.");
           }
@@ -143,12 +143,12 @@ const AppContextProvider = ({ children }) => {
         const data = await response.json();
 
         if (response.ok) {
-          console.log(data);
+          // console.log(data);
           setRegisterSuccess("registered as a doctor");
         } else {
           if (response.status === 400) {
             setSubmitError(data.message);
-            console.log(data);
+            // console.log(data);
           } else {
             throw new Error("Server error.");
           }
@@ -222,6 +222,7 @@ const AppContextProvider = ({ children }) => {
             setTimeout(() => {
               setLoginSuccess("");
               navigate("/");
+              window.location.reload();
             }, 3000);
           }
         } else {
@@ -244,6 +245,7 @@ const AppContextProvider = ({ children }) => {
     localStorage.removeItem("userData");
     localStorage.removeItem("medicalDataStatus");
     localStorage.removeItem("doctors");
+    localStorage.removeItem("appointmentsList");
     setUserData({});
     navigate("/");
     window.scrollTo(0, 0);
@@ -333,7 +335,7 @@ const AppContextProvider = ({ children }) => {
           medical_issue: appointment.medical_issue,
           referral_letter: appointment.referral_letter,
         };
-        console.log(formDataToSend);
+        // console.log(formDataToSend);
 
         const response = await fetch(
           `https://medico-production-fa1c.up.railway.app/api/create/appointment/${id}`,
@@ -349,7 +351,7 @@ const AppContextProvider = ({ children }) => {
         const data = await response.json();
 
         if (response.ok) {
-          console.log(data);
+          // console.log(data);
           setAppointmentSuccess(data?.message);
           setTimeout(() => {
             setAppointmentSuccess("");
@@ -478,7 +480,7 @@ const AppContextProvider = ({ children }) => {
         const data = await response.json();
 
         if (response.ok) {
-          console.log(data);
+          // console.log(data);
           localStorage.setItem("medicalDataStatus", JSON.stringify(true));
           setMedicalDataStatus(true);
           setMedicalDataSubmitSuccess("success");
@@ -538,6 +540,44 @@ const AppContextProvider = ({ children }) => {
 
   // console.log(userData);
 
+  //to get appointments   //to get appointments   //to get appointments
+  //to get appointments   //to get appointments   //to get appointments
+  const [appointmentsList, setAppointmentsList] = useState(
+    JSON.parse(localStorage.getItem("appointmentsList")) || []
+  );
+
+  useEffect(() => {
+    if (userData?.token) {
+      const getAppointmentsList = async () => {
+        setLoader(true);
+        try {
+          const response = await fetch(
+            "https://medico-production-fa1c.up.railway.app/api/get/appointments",
+            {
+              headers: {
+                Authorization: `Bearer ${userData?.token}`,
+              },
+            }
+          );
+          const data = await response.json();
+          if (data.length > 0) {
+            localStorage.setItem(
+              "appointmentsList",
+              JSON.stringify(data[0]?.appointments)
+            );
+            setAppointmentsList([...data[0]?.appointments]);
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoader(false);
+        }
+      };
+      getAppointmentsList();
+    }
+  }, [userData, appointmentSuccess]);
+  // console.log(appointmentsList);
+
   return (
     <AppContext.Provider
       value={{
@@ -567,6 +607,7 @@ const AppContextProvider = ({ children }) => {
         medicalDataSubmitSuccess,
         appointmentSuccess,
         loggedOut,
+        appointmentsList,
       }}
     >
       {children}

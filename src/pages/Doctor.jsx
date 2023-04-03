@@ -19,9 +19,7 @@ const Doctor = () => {
   } = useAppContext();
 
   const { name } = useParams();
-  const eachDoctor = doctors?.filter(
-    (item) => item?.doctors.first_name === name
-  )[0];
+  const eachDoctor = doctors?.filter((item) => item?.first_name === name)[0];
 
   const [showBook, setShowBook] = useState(false);
   function toggleBookOn() {
@@ -57,7 +55,7 @@ const Doctor = () => {
         </div>
 
         <h2 className="font-bold text-[1.1rem] md:text-[1.5rem] text-center md:text-start mb-4">
-          Dr. {eachDoctor?.doctors.first_name} {eachDoctor?.doctors.last_name}{" "}
+          Dr. {eachDoctor?.first_name} {eachDoctor?.last_name}{" "}
         </h2>
 
         <div className="w-full block md:flex items-start gap-8 ">
@@ -66,13 +64,13 @@ const Doctor = () => {
               <img
                 alt=""
                 src={`${
-                  eachDoctor?.doctors.last_name === "Eze"
+                  eachDoctor?.last_name === "Eze"
                     ? "/images/doc1.jpg"
-                    : eachDoctor?.doctors.last_name === "Doe"
+                    : eachDoctor?.last_name === "Doe"
                     ? "/images/med1.jpg"
-                    : eachDoctor?.doctors.last_name === "Ajani"
+                    : eachDoctor?.last_name === "Ajani"
                     ? "/images/doc2.jpg"
-                    : eachDoctor?.doctors.last_name === "Ada"
+                    : eachDoctor?.last_name === "Ada"
                     ? "/images/doc3.jpg"
                     : "/images/med2.jpg"
                 }`}
@@ -84,7 +82,7 @@ const Doctor = () => {
             <div className="text-center">
               <p className="text-[1rem] md:text-[1.1rem] mb-4">
                 Click the button below to schedule an appointment with Dr.{" "}
-                {eachDoctor?.doctors.first_name} {eachDoctor?.doctors.last_name}
+                {eachDoctor?.first_name} {eachDoctor?.last_name}
               </p>
               {!showBook && (
                 <button
@@ -107,7 +105,7 @@ const Doctor = () => {
                   <input
                     id="doctor"
                     type="text"
-                    value={`Dr. ${eachDoctor?.doctors.first_name} ${eachDoctor?.doctors.last_name}`}
+                    value={`Dr. ${eachDoctor?.first_name} ${eachDoctor?.last_name}`}
                     onChange={handleAppointmentChange}
                     className="w-full bg-blue-400/10 py-1 px-3 rounded-md outline-none border border-blue-400/50"
                   />

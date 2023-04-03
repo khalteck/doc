@@ -40,7 +40,7 @@ const Homepage = () => {
           </div>
         </div>
       )}
-      {!medicalDataStatus && userData?.token && (
+      {!medicalDataStatus && userData?.token && userData?.is_patient && (
         <div className="w-full h-full fixed top-0 left-0 bg-black/90 px-4 py-10 flex justify-center items-center z-40 scale overflow-y-auto">
           <div className="w-full sm:w-[550px] flex flex-col gap-4 items-center bg-white rounded-lg p-6 my-5 overflow-y-auto">
             <img
