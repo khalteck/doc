@@ -73,7 +73,7 @@ const Login = ({}) => {
             )}
             <button
               onClick={handleLogin}
-              className="w-full bg-blue-400 my-4 p-3 outline-none rounded-lg"
+              className="w-full bg-blue-400 my-4 p-3 outline-none rounded-lg text-white"
             >
               Login
             </button>

@@ -163,9 +163,16 @@ const Header = () => {
               } w-3 h-3 transition-all duration-300`}
             />
             {showDrop && (
-              <ul className="w-[180px] absolute top-[65px] bg-white shadow-md slide">
-                <li className="p-2 border-b border-slate-500 bg-blue-400/30">
-                  {userData?.first_name}
+              <ul className="w-[180px] absolute top-[65px] right-0 text-[1rem] bg-white shadow-md slide">
+                <li className="p-2 border-b border-slate-500 bg-blue-400/30 text-gray-600 flex gap-3 items-center">
+                  <img
+                    alt=""
+                    src="/images/icons8-user-67.png"
+                    className="w-5 h-5"
+                  />
+                  <p>
+                    {userData?.is_medic && "Dr."} {userData?.first_name}
+                  </p>
                 </li>
                 <li onClick={logout} className="p-2">
                   Log out

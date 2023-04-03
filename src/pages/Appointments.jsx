@@ -52,11 +52,13 @@ const Appointments = () => {
             </div>
           )}
         </div>
-        <Link to="/">
-          <button className="w-fit bg-blue-500 hover:bg-blue-300 text-white my-4 mx-auto py-3 px-8 outline-none rounded-lg">
-            Book new appoinment
-          </button>
-        </Link>
+        {userData?.is_patient && (
+          <Link to="/">
+            <button className="w-fit bg-blue-500 hover:bg-blue-300 text-white my-4 mx-auto py-3 px-8 outline-none rounded-lg">
+              Book new appoinment
+            </button>
+          </Link>
+        )}
       </section>
       <ScrollToTop />
       <Footer />

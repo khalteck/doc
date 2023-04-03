@@ -16,6 +16,7 @@ const AppContextProvider = ({ children }) => {
     setSubmitError("");
   }, [currentPage]);
   const [registerSuccess, setRegisterSuccess] = useState("");
+  const [isDoctor, setIsDoctor] = useState(false);
 
   //to reg patients   //to reg patients   //to reg patients
   //to reg patients   //to reg patients   //to reg patients
@@ -608,6 +609,8 @@ const AppContextProvider = ({ children }) => {
         appointmentSuccess,
         loggedOut,
         appointmentsList,
+        setIsDoctor,
+        isDoctor,
       }}
     >
       {children}

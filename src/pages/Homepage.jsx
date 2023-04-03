@@ -21,6 +21,9 @@ const Homepage = () => {
     loader,
     userData,
     medicalDataSubmitSuccess,
+    isDoctor,
+    navigate,
+    setIsDoctor,
   } = useAppContext();
   return (
     <>
@@ -37,6 +40,29 @@ const Homepage = () => {
             <h3 className="font-medium text-[1.1rem] sm:text-[1.3rem] text-center">
               Medical data submitted Successfully!
             </h3>
+          </div>
+        </div>
+      )}
+      {isDoctor && (
+        <div className="w-full h-full fixed top-0 left-0 bg-black/90 p-4 flex justify-center items-center z-40 scale">
+          <div className="w-full sm:w-[550px] flex flex-col gap-4 items-center bg-white rounded-lg p-5">
+            <img
+              alt=""
+              src="/images/icons8-info-black-64.png"
+              className="w-10 h-10"
+            />
+            <h3 className="font-medium text-[1.1rem] sm:text-[1.3rem] text-center">
+              Doctors can not create appointments!
+            </h3>
+            <button
+              onClick={() => {
+                navigate("/appointments");
+                setIsDoctor(false);
+              }}
+              className="py-2 px-4 bg-blue-500 hover:bg-blue-300 rounded-md text-white"
+            >
+              View scheduled appointments?
+            </button>
           </div>
         </div>
       )}

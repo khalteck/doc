@@ -51,7 +51,7 @@ export default function Footer() {
             </li>
             {/* <li onClick={accessDashboard}>Book rides</li> */}
             <li>
-              <Link to="/contact">Contact</Link>
+              <Link to="/">Contact</Link>
             </li>
             <li>
               <Link to="/register">Register</Link>
@@ -74,7 +74,7 @@ export default function Footer() {
               <Link to="/register">Register</Link>
             </li>
             <li>
-              <Link to="/contact">Contact</Link>
+              <Link to="/">Contact</Link>
             </li>
           </ul>
         </div>
