@@ -10,28 +10,41 @@ const ProductCard = ({ item }) => {
       setIsDoctor(true);
     }
   }
+
+  // `https://res.cloudinary.com/dqy5f2fji/image/upload/${publicID}`
+
+  const urlArr = item?.profile_image.split("/");
+  const publicID = urlArr[urlArr.length - 1];
   return (
-    <div
-      onClick={link}
-      className="w-full min-h-[240px] bg-[#3b82f6] border border-[#3b82f6] cursor-pointer relative"
-    >
+    <div className="w-full min-h-[350px] bg-[#3b82f6] border border-[#3b82f6] cursor-pointer relative rounded-lg">
       <img
         alt=""
-        src={`${
-          item?.last_name === "Eze"
-            ? "/images/doc1.jpg"
-            : item?.last_name === "Doe"
-            ? "/images/med1.jpg"
-            : item?.last_name === "Ajani"
-            ? "/images/doc2.jpg"
-            : item?.last_name === "Ada"
-            ? "/images/doc3.jpg"
-            : "/images/med2.jpg"
-        }`}
-        className="w-full h-[240px] object-cover hover:opacity-60 transition-all duration-300"
+        src={item?.profile_image}
+        className="w-full h-[350px] object-cover hover:opacity-60 transition-all duration-300 rounded-lg"
       />
-      <div className="w-full h-12 text-white font-light text-center py-3 bg-[#262727]/80 absolute left-0 bottom-0">
-        Dr. {item?.first_name} {item?.last_name}
+      <div className="w-full h-fit px-5 text-white font-light pb-3 pt-2 bg-[#262727]/80 absolute left-0 bottom-0 rounded-b-lg rounded-tr-[100px]">
+        <p className="font-bold text-[1.3rem]">
+          {" "}
+          Dr. {item?.first_name} {item?.last_name}
+        </p>
+        <p className="font-normal mt-1">
+          Specialty:{" "}
+          <span className="text-blue-300 lowercase">
+            {item?.specialty === "OTHER" ? item?.other : item?.specialty}
+          </span>
+        </p>
+        <p className="font-normal">
+          Years of experience:{" "}
+          <span className="text-blue-300">{item?.years_of_experience}</span>
+        </p>
+        <div className="w-full">
+          <button
+            onClick={link}
+            className="w-fit bg-[#3b82f6] hover:bg-[#3b82f6]/60 text-[0.85rem] font-medium mt-2 px-6 py-1 outline-none rounded-lg text-white"
+          >
+            Book appointment
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -101,8 +101,13 @@ const AppContextProvider = ({ children }) => {
     first_name: "",
     last_name: "",
     email: "",
+    years_of_experience: "",
+    specialty: "",
+    other: null,
+    profile_image: "",
     password: "",
   });
+  // console.log(regDoc);
 
   function handleRegDocChange(event) {
     const { id, value } = event.target;
@@ -132,6 +137,13 @@ const AppContextProvider = ({ children }) => {
         formDataToSend.append("first_name", regDoc.first_name);
         formDataToSend.append("last_name", regDoc.last_name);
         formDataToSend.append("email", regDoc.email);
+        formDataToSend.append(
+          "years_of_experience",
+          regDoc.years_of_experience
+        );
+        formDataToSend.append("specialty", regDoc.specialty.toUpperCase());
+        formDataToSend.append("other", regDoc.other.toUpperCase());
+        formDataToSend.append("profile_image", regDoc.profile_image);
         formDataToSend.append("password", regDoc.password);
 
         const response = await fetch(
@@ -156,7 +168,7 @@ const AppContextProvider = ({ children }) => {
         }
       } catch (error) {
         console.error(error);
-        setSubmitError("Bad network connection");
+        setSubmitError("Something went wrong");
       } finally {
         setLoader(false);
       }
@@ -379,6 +391,7 @@ const AppContextProvider = ({ children }) => {
   const [doctors, setDoctors] = useState(
     JSON.parse(localStorage.getItem("doctors")) || []
   );
+  // console.log(doctors);
 
   useEffect(() => {
     if (userData?.token) {
@@ -394,8 +407,9 @@ const AppContextProvider = ({ children }) => {
             }
           );
           const data = await response.json();
-          localStorage.setItem("doctors", JSON.stringify(data?.doctors));
-          setDoctors([...data?.doctors]);
+          data?.doctors &&
+            localStorage.setItem("doctors", JSON.stringify(data?.doctors));
+          data?.doctors && setDoctors([...data?.doctors]);
         } catch (error) {
           console.error("Error fetching data:", error);
         } finally {
@@ -524,11 +538,12 @@ const AppContextProvider = ({ children }) => {
             }
           );
           const data = await response.json();
-          localStorage.setItem(
-            "medicalDataStatus",
-            JSON.stringify(data.status)
-          );
-          setMedicalDataStatus(data.status);
+          data?.status &&
+            localStorage.setItem(
+              "medicalDataStatus",
+              JSON.stringify(data.status)
+            );
+          data?.status && setMedicalDataStatus(data.status);
         } catch (error) {
           console.error("Error fetching data:", error);
         } finally {
@@ -611,6 +626,7 @@ const AppContextProvider = ({ children }) => {
         appointmentsList,
         setIsDoctor,
         isDoctor,
+        regDoc,
       }}
     >
       {children}

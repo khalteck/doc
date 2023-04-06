@@ -16,6 +16,7 @@ const Register = ({}) => {
     proceedToLogin,
     handleRegDocChange,
     handleRegDocSubmit,
+    regDoc,
   } = useAppContext();
 
   const [docOpen, setDocOpen] = useState(false);
@@ -55,7 +56,7 @@ const Register = ({}) => {
           </div>
         </div>
       )}
-      <div className="w-full min-h-[85vh] px-4 my-16 text-slate-700 flex flex-col items-center justify-center relative">
+      <div className="w-full min-h-[85vh] px-4 my-16 py-16 text-slate-700 flex flex-col items-center justify-center relative">
         {/* <Link to="/" className="absolute top-10 left-2 block sm:hidden">
           <button className="bg-[#3b82f6]/80 font-bold text-[0.90rem] mb-8 px-5 py-1 rounded-md hover:bg-[#3b82f6] hover:translate-y-[6px] transition-all duration-300">
             Back to home
@@ -152,34 +153,148 @@ const Register = ({}) => {
 
           {docOpen && (
             <form>
+              <label
+                htmlFor="first_name"
+                className="mb-1 font-medium text-[1.2rem]"
+              >
+                First name
+              </label>
               <input
                 type="text"
                 id="first_name"
                 onChange={handleRegDocChange}
                 placeholder="Doctor's First name"
-                className="w-full bg-[#3b82f6]/20 my-4 p-3 outline-none rounded-lg"
+                className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
               />
+              <label
+                htmlFor="last_name"
+                className="mb-1 font-medium text-[1.2rem]"
+              >
+                Last name
+              </label>
               <input
                 type="text"
                 id="last_name"
                 onChange={handleRegDocChange}
                 placeholder="Doctor's Last name"
-                className="w-full bg-[#3b82f6]/20 my-4 p-3 outline-none rounded-lg"
+                className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
               />
+              <label htmlFor="email" className="mb-1 font-medium text-[1.2rem]">
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
                 onChange={handleRegDocChange}
                 placeholder="Doctor's email"
-                className="w-full bg-[#3b82f6]/20 my-4 p-3 outline-none rounded-lg"
+                className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
               />
+              <label
+                htmlFor="years_of_experience"
+                className="mb-1 font-medium text-[1.2rem]"
+              >
+                Years of experience
+              </label>
+              <input
+                type="text"
+                id="years_of_experience"
+                onChange={handleRegDocChange}
+                placeholder="5 years"
+                className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
+              />
+              <label
+                htmlFor="specialty"
+                className="mb-1 font-medium text-[1.2rem]"
+              >
+                Specialty
+              </label>
+              <select
+                id="specialty"
+                defaultValue={"DEFAULT"}
+                onChange={handleRegDocChange}
+                className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
+              >
+                <option value="DEFAULT" disabled hidden>
+                  Select specialty
+                </option>
+
+                <option className="lowercase" value="CARDIOLOGIST">
+                  CARDIOLOGIST
+                </option>
+                <option className="lowercase" value="PEDIATRICIAN">
+                  PEDIATRICIAN
+                </option>
+                <option className="lowercase" value="NEUROLOGIST">
+                  NEUROLOGIST
+                </option>
+                <option className="lowercase" value="GYNECOLOGIST">
+                  GYNECOLOGIST
+                </option>
+                <option className="lowercase" value="PHYSIOTHERAPIST">
+                  PHYSIOTHERAPIST
+                </option>
+                <option className="lowercase" value="ONCOLOGIST">
+                  ONCOLOGIST
+                </option>
+                <option className="lowercase" value="OPTHAMOLOGIST">
+                  OPTHAMOLOGIST
+                </option>
+                <option className="lowercase" value="PSYCHIATRIST">
+                  PSYCHIATRIST
+                </option>
+                <option className="lowercase" value="DERMATOLOGIST">
+                  DERMATOLOGIST
+                </option>
+                <option className="lowercase" value="PSYCHOLOGIST">
+                  PSYCHOLOGIST
+                </option>
+                <option className="" value="other">
+                  OTHER
+                </option>
+              </select>
+              {regDoc?.specialty === "other" && (
+                <div className="">
+                  <label
+                    htmlFor="other"
+                    className="mb-1 font-medium text-[1.2rem]"
+                  >
+                    Enter other specialty
+                  </label>
+                  <input
+                    type="text"
+                    id="other"
+                    onChange={handleRegDocChange}
+                    placeholder="Surgeon"
+                    className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
+                  />
+                </div>
+              )}
+              <label
+                htmlFor="profile_image"
+                className="mb-1 font-medium text-[1.2rem]"
+              >
+                Profile image
+              </label>
+              <input
+                type="file"
+                id="profile_image"
+                onChange={handleRegDocChange}
+                placeholder="profile image"
+                className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
+              />
+              <label
+                htmlFor="password"
+                className="mb-1 font-medium text-[1.2rem]"
+              >
+                Password
+              </label>
               <div className="w-full relative">
                 <input
                   type={showPassword ? "text" : "password"}
                   id="password"
                   onChange={handleRegDocChange}
                   placeholder="password"
-                  className="w-full bg-[#3b82f6]/20 my-4 p-3 outline-none rounded-lg"
+                  className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
                 />
                 <img
                   alt="reveal"
@@ -200,7 +315,7 @@ const Register = ({}) => {
               )}
               <button
                 onClick={handleRegDocSubmit}
-                className="w-full bg-[#3b82f6] my-4 p-3 outline-none rounded-lg text-white"
+                className="w-full bg-[#3b82f6] mb-6 mt-2 p-3 outline-none rounded-lg text-white"
               >
                 Register as a Doctor
               </button>
