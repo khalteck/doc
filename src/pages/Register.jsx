@@ -17,6 +17,8 @@ const Register = ({}) => {
     handleRegDocChange,
     handleRegDocSubmit,
     regDoc,
+    getInputProps,
+    getRootProps,
   } = useAppContext();
 
   const [docOpen, setDocOpen] = useState(false);
@@ -275,13 +277,30 @@ const Register = ({}) => {
               >
                 Profile image
               </label>
-              <input
+              <div
+                {...getRootProps({
+                  className:
+                    "w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg",
+                })}
+              >
+                <input {...getInputProps()} />
+                {regDoc.profile_image ? (
+                  <p className="w-fit mx-auto border border-blue-500 py-1 px-5 rounded-md cursor-pointer">
+                    {regDoc.profile_image.name}
+                  </p>
+                ) : (
+                  <p className="w-fit mx-auto border border-blue-500 py-2 px-5 rounded-md cursor-pointer">
+                    Upload Image
+                  </p>
+                )}
+              </div>
+              {/* <input
                 type="file"
                 id="profile_image"
                 onChange={handleRegDocChange}
                 placeholder="profile image"
                 className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
-              />
+              /> */}
               <label
                 htmlFor="password"
                 className="mb-1 font-medium text-[1.2rem]"

@@ -1,6 +1,8 @@
 import moment from "moment";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDropzone } from "react-dropzone";
+import Compressor from "compressorjs";
 
 export const AppContext = createContext();
 
@@ -104,7 +106,8 @@ const AppContextProvider = ({ children }) => {
     years_of_experience: "",
     specialty: "",
     other: null,
-    profile_image: "",
+    profile_image: null,
+    imageData: "",
     password: "",
   });
   // console.log(regDoc);
@@ -120,32 +123,63 @@ const AppContextProvider = ({ children }) => {
     });
   }
 
+  const handleDrop = (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      new Compressor(file, {
+        quality: 0.9,
+        maxWidth: 500,
+        maxHeight: 500,
+        success: (compressedFile) => {
+          setRegDoc({
+            ...regDoc,
+            profile_image: compressedFile,
+          });
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    };
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "*",
+    multiple: false,
+    onDrop: handleDrop,
+  });
+
   //to handle patient register form submit
   const handleRegDocSubmit = async (event) => {
     event.preventDefault();
 
     if (
-      regDoc.first_name &&
-      regDoc.last_name &&
-      regDoc.email &&
-      regDoc.password
+      regDoc?.first_name &&
+      regDoc?.last_name &&
+      regDoc?.email &&
+      regDoc?.password &&
+      regDoc?.specialty &&
+      regDoc?.profile_image
     ) {
       setLoader(true);
 
       try {
         const formDataToSend = new FormData();
-        formDataToSend.append("first_name", regDoc.first_name);
-        formDataToSend.append("last_name", regDoc.last_name);
-        formDataToSend.append("email", regDoc.email);
+        formDataToSend.append("first_name", regDoc?.first_name);
+        formDataToSend.append("last_name", regDoc?.last_name);
+        formDataToSend.append("email", regDoc?.email);
         formDataToSend.append(
           "years_of_experience",
-          regDoc.years_of_experience
+          regDoc?.years_of_experience
         );
-        formDataToSend.append("specialty", regDoc.specialty.toUpperCase());
-        formDataToSend.append("other", regDoc.other.toUpperCase());
-        formDataToSend.append("profile_image", regDoc.profile_image);
-        formDataToSend.append("password", regDoc.password);
+        formDataToSend.append("specialty", regDoc?.specialty.toUpperCase());
+        formDataToSend.append("other", regDoc?.other?.toUpperCase());
+        formDataToSend.append("profile_image", regDoc?.profile_image);
+        formDataToSend.append("password", regDoc?.password);
 
+        console.log(formDataToSend);
         const response = await fetch(
           "https://medico-production-fa1c.up.railway.app/api/doctor/reg/",
           {
@@ -203,13 +237,13 @@ const AppContextProvider = ({ children }) => {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    if (login.email && login.password) {
+    if (login?.email && login?.password) {
       setLoader(true);
 
       try {
         const formDataToSend = new FormData();
-        formDataToSend.append("email", login.email);
-        formDataToSend.append("password", login.password);
+        formDataToSend.append("email", login?.email);
+        formDataToSend.append("password", login?.password);
 
         const response = await fetch(
           "https://medico-production-fa1c.up.railway.app/api/login",
@@ -301,52 +335,52 @@ const AppContextProvider = ({ children }) => {
     event.preventDefault();
 
     if (
-      appointment.day &&
-      appointment.month &&
-      appointment.year &&
-      appointment.medical_issue &&
-      appointment.referral_letter
+      appointment?.day &&
+      appointment?.month &&
+      appointment?.year &&
+      appointment?.medical_issue &&
+      appointment?.referral_letter
     ) {
       setLoader(true);
 
-      let date = `${appointment.year}-${
-        appointment.month === "January"
+      let date = `${appointment?.year}-${
+        appointment?.month === "January"
           ? "01"
-          : appointment.month === "February"
+          : appointment?.month === "February"
           ? "02"
-          : appointment.month === "March"
+          : appointment?.month === "March"
           ? "03"
-          : appointment.month === "April"
+          : appointment?.month === "April"
           ? "04"
-          : appointment.month === "May"
+          : appointment?.month === "May"
           ? "05"
-          : appointment.month === "June"
+          : appointment?.month === "June"
           ? "06"
-          : appointment.month === "July"
+          : appointment?.month === "July"
           ? "07"
-          : appointment.month === "August"
+          : appointment?.month === "August"
           ? "08"
-          : appointment.month === "September"
+          : appointment?.month === "September"
           ? "09"
-          : appointment.month === "October"
+          : appointment?.month === "October"
           ? "10"
-          : appointment.month === "November"
+          : appointment?.month === "November"
           ? "11"
-          : appointment.month === "December"
+          : appointment?.month === "December"
           ? "12"
           : null
       }-${
         appointment?.day.split("").length === 1
-          ? `0${appointment.day}`
-          : appointment.day
+          ? `0${appointment?.day}`
+          : appointment?.day
       }`;
-      let time = `${appointment.hour}:${appointment.minute} ${appointment.ampm}`;
+      let time = `${appointment?.hour}:${appointment?.minute} ${appointment?.ampm}`;
       const time24Hour = moment(time, "hh:mm A").format("HH:mm:ss");
       try {
         const formDataToSend = {
           schedule_date: `${date} ${time24Hour}`,
-          medical_issue: appointment.medical_issue,
-          referral_letter: appointment.referral_letter,
+          medical_issue: appointment?.medical_issue,
+          referral_letter: appointment?.referral_letter,
         };
         // console.log(formDataToSend);
 
@@ -454,10 +488,10 @@ const AppContextProvider = ({ children }) => {
     event.preventDefault();
 
     if (
-      medicalData.occupation &&
-      medicalData.blood_group &&
-      medicalData.medical_cases &&
-      medicalData.home_address
+      medicalData?.occupation &&
+      medicalData?.blood_group &&
+      medicalData?.medical_cases &&
+      medicalData?.home_address
     ) {
       setLoader(true);
 
@@ -466,19 +500,19 @@ const AppContextProvider = ({ children }) => {
         formDataToSend.append("race", selectedRace.toUpperCase());
         formDataToSend.append(
           "occupation",
-          medicalData.occupation.toUpperCase()
+          medicalData?.occupation.toUpperCase()
         );
         formDataToSend.append(
           "blood_group",
-          medicalData.blood_group.toUpperCase()
+          medicalData?.blood_group.toUpperCase()
         );
         formDataToSend.append(
           "medical_cases",
-          medicalData.medical_cases.toUpperCase()
+          medicalData?.medical_cases.toUpperCase()
         );
         formDataToSend.append(
           "home_address",
-          medicalData.home_address.toUpperCase()
+          medicalData?.home_address.toUpperCase()
         );
 
         const response = await fetch(
@@ -627,6 +661,8 @@ const AppContextProvider = ({ children }) => {
         setIsDoctor,
         isDoctor,
         regDoc,
+        getRootProps,
+        getInputProps,
       }}
     >
       {children}

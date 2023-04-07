@@ -252,7 +252,7 @@ const Homepage = () => {
             </div>
           )}
           {userData?.token && (
-            <div className="w-full grid sm:grid-cols-3 lg:grid-cols-3 gap-4 mt-10">
+            <div className="w-full grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
               {doctors?.map((item, index) => {
                 return <DoctorsCard key={index} item={item} />;
               })}
