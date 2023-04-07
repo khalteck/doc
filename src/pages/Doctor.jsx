@@ -54,26 +54,16 @@ const Doctor = () => {
           <div className="w-full h-[1px] bg-gradient-to-r from-[#3b82f6] to-white/10"></div>
         </div>
 
-        <h2 className="font-bold text-[1.1rem] md:text-[1.5rem] text-center md:text-start mb-4">
-          Dr. {eachDoctor?.first_name} {eachDoctor?.last_name}{" "}
-        </h2>
-
-        <div className="w-full block md:flex items-start gap-8 ">
+        <div className="w-full block md:flex items-start justify-center gap-8 ">
           <div className="mb-6 md:mb-0">
             <div className="w-full text-center md:text-start">
+              <h2 className="font-bold text-[1.1rem] md:text-[1.5rem] text-center md:text-start mb-4">
+                Dr. {eachDoctor?.first_name} {eachDoctor?.last_name}{" "}
+              </h2>
+
               <img
                 alt=""
-                src={`${
-                  eachDoctor?.last_name === "Eze"
-                    ? "/images/doc1.jpg"
-                    : eachDoctor?.last_name === "Doe"
-                    ? "/images/med1.jpg"
-                    : eachDoctor?.last_name === "Ajani"
-                    ? "/images/doc2.jpg"
-                    : eachDoctor?.last_name === "Ada"
-                    ? "/images/doc3.jpg"
-                    : "/images/med2.jpg"
-                }`}
+                src={eachDoctor?.profile_image}
                 className="w-full md:w-[300px] h-[240px] mx-auto md:mx-0 object-cover hover:opacity-60 transition-all duration-300 rounded-lg"
               />
             </div>
@@ -95,7 +85,7 @@ const Doctor = () => {
             </div>
           )}
           {showBook && (
-            <div className="w-full sm:w-[400px]">
+            <div className="w-full sm:w-[500px]">
               <form className="w-full">
                 <label htmlFor="doctor" className="">
                   Doctor's name

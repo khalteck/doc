@@ -54,15 +54,23 @@ const Homepage = () => {
             <h3 className="font-medium text-[1.1rem] sm:text-[1.3rem] text-center">
               Doctors can not create appointments!
             </h3>
-            <button
-              onClick={() => {
-                navigate("/appointments");
-                setIsDoctor(false);
-              }}
-              className="py-2 px-4 bg-blue-500 hover:bg-blue-300 rounded-md text-white"
-            >
-              View scheduled appointments?
-            </button>
+            <div className="w-full flex gap-3 justify-center">
+              <button
+                onClick={() => setIsDoctor(false)}
+                className="py-2 px-4 border-2 border-blue-500 hover:bg-blue-300 rounded-md text-black hover:text-white"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  navigate("/appointments");
+                  setIsDoctor(false);
+                }}
+                className="py-2 px-4 bg-blue-500 hover:bg-blue-300 rounded-md text-white"
+              >
+                View appointments?
+              </button>
+            </div>
           </div>
         </div>
       )}

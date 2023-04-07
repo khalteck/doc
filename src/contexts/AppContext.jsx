@@ -270,6 +270,7 @@ const AppContextProvider = ({ children }) => {
               setLoginSuccess("");
               navigate("/");
               window.location.reload();
+              setLoader(false);
             }, 3000);
           }
         } else {
@@ -278,7 +279,6 @@ const AppContextProvider = ({ children }) => {
       } catch (error) {
         console.error(error);
         setSubmitError("Bad network connection");
-      } finally {
         setLoader(false);
       }
     } else {
