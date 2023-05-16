@@ -64,6 +64,26 @@ const Header = () => {
             >
               Appointments
             </Link>
+            {userData?.is_patient && (
+              <Link
+                to="/documents"
+                className={`cursor-pointer px-2 py-1 ${
+                  currentPage === "/documents" && "bg-[#3b82f6] text-white"
+                } rounded-md whitespace-nowrap hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
+              >
+                Documents
+              </Link>
+            )}
+            {userData?.is_medic && (
+              <Link
+                to="/patients"
+                className={`cursor-pointer px-2 py-1 ${
+                  currentPage === "/patients" && "bg-[#3b82f6] text-white"
+                } rounded-md whitespace-nowrap hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
+              >
+                Patients
+              </Link>
+            )}
             <Link
               to="/about"
               className={`cursor-pointer px-2 py-1 ${
@@ -72,13 +92,6 @@ const Header = () => {
             >
               About us
             </Link>
-            {/* <div
-              className={`cursor-pointer px-2 py-1 ${
-                currentPage === "/contact" && "bg-[#3b82f6] text-white"
-              } rounded-md hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
-            >
-              Contact
-            </div> */}
             {!userData?.token && (
               <>
                 <Link to="/login">
@@ -214,6 +227,20 @@ const Header = () => {
                   <div className="w-full">Appointments</div>
                 </Link>
               </li>
+              {userData?.is_patient && (
+                <li className="my-4">
+                  <Link to="/documents" onClick={hideDropdown}>
+                    <div className="w-full">documents</div>
+                  </Link>
+                </li>
+              )}
+              {userData?.is_medic && (
+                <li className="my-4">
+                  <Link to="/patients" onClick={hideDropdown}>
+                    <div className="w-full">patients</div>
+                  </Link>
+                </li>
+              )}
               <li className="my-4">
                 <Link to="/about" onClick={hideDropdown}>
                   <div className="w-full">About Us</div>

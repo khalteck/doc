@@ -213,4 +213,8 @@
     /* padding: 30px 100px 50px 30px; */
     border: 2px solid white;
   }
+  table tbody tr td {
+    padding: 10px 0px !important;
+    margin: 0px !important;
+  }
 }

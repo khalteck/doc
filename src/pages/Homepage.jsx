@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import { useAppContext } from "../contexts/AppContext";
 import Loader from "../components/Loader";
 import DoctorsCardOffline from "../components/DoctorsCardOffline";
+import { useState } from "react";
 
 const Homepage = () => {
   const {
@@ -25,6 +26,14 @@ const Homepage = () => {
     navigate,
     setIsDoctor,
   } = useAppContext();
+
+  const [videoCall, setVideoCall] = useState(false);
+  function toggleVideoCall() {
+    setVideoCall((prev) => !prev);
+    console.log("clicked");
+    console.log(videoCall);
+  }
+
   return (
     <>
       <Header />
@@ -40,6 +49,41 @@ const Homepage = () => {
             <h3 className="font-medium text-[1.1rem] sm:text-[1.3rem] text-center">
               Medical data submitted Successfully!
             </h3>
+          </div>
+        </div>
+      )}
+      <div
+        onClick={toggleVideoCall}
+        className="w-fit h-fit md:h-[120px] bg-blue-500 shadow-lg fixed bottom-5 right-5 text-black p-3 md:p-4 rounded-full flex justify-center items-center cursor-pointer hover:opacity-[.7] z-30"
+      >
+        <div>
+          <p className="uppercase font-bold text-[.75rem] md:text-[1rem]">
+            Video Call
+          </p>
+          <img
+            src="/images/video.png"
+            className="w-7 h-7 md:w-10 md:h-10 mx-auto"
+            alt=""
+          />
+        </div>
+      </div>
+      {videoCall && (
+        <div className="w-full h-screen bg-white fixed top-0 left-0 z-40">
+          <div
+            onClick={toggleVideoCall}
+            className="bg-blue-500 py-2 px-4 rounded-lg absolute top-3 right-3 cursor-pointer font-bold text-white"
+          >
+            Close
+          </div>
+          <h1 className="text-[1.25rem] text-center text-black font-bold uppercase mt-4">
+            Video call
+          </h1>
+          <div className="w-full h-full bg-green-800">
+            <iframe
+              className="w-full h-full"
+              src="https://whereby.com/khalteck"
+              allow="camera; microphone; fullscreen; speaker; display-capture; autoplay"
+            ></iframe>
           </div>
         </div>
       )}

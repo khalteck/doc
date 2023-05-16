@@ -8,6 +8,8 @@ import { useAppContext } from "./contexts/AppContext";
 const About = lazy(() => import("./pages/About"));
 const Doctor = lazy(() => import("./pages/Doctor"));
 const Appointments = lazy(() => import("./pages/Appointments"));
+const Documents = lazy(() => import("./pages/Documents"));
+const Patients = lazy(() => import("./pages/Patients"));
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
 
@@ -21,6 +23,14 @@ function App() {
         <Route
           path="/appointments"
           element={userData?.token ? <Appointments /> : <Login />}
+        />
+        <Route
+          path="/documents"
+          element={userData?.is_patient ? <Documents /> : <Homepage />}
+        />
+        <Route
+          path="/patients"
+          element={userData?.is_medic ? <Patients /> : <Homepage />}
         />
         <Route
           path="/doctor/:name"

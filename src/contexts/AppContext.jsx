@@ -240,45 +240,44 @@ const AppContextProvider = ({ children }) => {
     if (login?.email && login?.password) {
       setLoader(true);
 
-      try {
-        const formDataToSend = new FormData();
-        formDataToSend.append("email", login?.email);
-        formDataToSend.append("password", login?.password);
+      const formDataToSend = new FormData();
+      formDataToSend.append("email", login?.email);
+      formDataToSend.append("password", login?.password);
 
-        const response = await fetch(
-          "https://medico-production-fa1c.up.railway.app/api/login",
-          {
-            method: "POST",
-            body: formDataToSend,
-          }
-        );
-        const data = await response.json();
-
-        if (response.ok) {
-          if (data.code === 404) {
-            setSubmitError("Invalid login details!");
-          } else {
-            setLoginSuccess("login success");
-            let userDetails = {
-              ...data.user_data,
-              token: data.token,
-            };
-            localStorage.setItem("userData", JSON.stringify(userDetails));
-            setUserData(userDetails);
-
-            setTimeout(() => {
-              setLoginSuccess("");
-              navigate("/");
-              window.location.reload();
-              setLoader(false);
-            }, 3000);
-          }
-        } else {
-          throw new Error("Server error.");
+      const response = await fetch(
+        "https://medico-production-fa1c.up.railway.app/api/login",
+        {
+          method: "POST",
+          body: formDataToSend,
         }
+      );
+      const data = await response.json();
+
+      try {
+        if (response.ok) {
+          setLoginSuccess("login success");
+          let userDetails = {
+            ...data.user_data,
+            token: data.token,
+          };
+          localStorage.setItem("userData", JSON.stringify(userDetails));
+          setUserData(userDetails);
+
+          setTimeout(() => {
+            setLoginSuccess("");
+            navigate("/");
+            window.location.reload();
+            setLoader(false);
+          }, 3000);
+        }
+        // console.log(data);
+        throw new Error("Server error.");
       } catch (error) {
-        console.error(error);
-        setSubmitError("Bad network connection");
+        console.log(error);
+        data?.code === 404
+          ? setSubmitError("Incorrect Email please try again!")
+          : setSubmitError("Bad network connection");
+
         setLoader(false);
       }
     } else {
@@ -610,6 +609,7 @@ const AppContextProvider = ({ children }) => {
             }
           );
           const data = await response.json();
+          console.log("patient appointments", data);
           if (data.length > 0) {
             localStorage.setItem(
               "appointmentsList",
@@ -627,6 +627,145 @@ const AppContextProvider = ({ children }) => {
     }
   }, [userData, appointmentSuccess]);
   // console.log(appointmentsList);
+
+  //to be sent
+  const [documentsData, setDocumentsData] = useState({
+    title: "",
+    description: "",
+    file: {},
+  });
+
+  function handledocumentsDataChange(event) {
+    const { id, value } = event.target;
+    setSubmitError("");
+    setDocumentsData((prev) => {
+      return {
+        ...prev,
+        [id]: value,
+      };
+    });
+  }
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setDocumentsData((prev) => {
+      return {
+        ...prev,
+        file: file,
+      };
+    });
+  };
+
+  const [DocSubmitSuccess, setDocSubmitSuccess] = useState(false);
+
+  const handleSubmitDoc = async (event) => {
+    event.preventDefault();
+
+    if (
+      documentsData?.title &&
+      documentsData?.file &&
+      documentsData?.description
+    ) {
+      setLoader(true);
+
+      try {
+        const formDataToSend = new URLSearchParams();
+        formDataToSend.append("title", documentsData?.title.toUpperCase());
+        formDataToSend.append("file", documentsData?.file);
+        formDataToSend.append(
+          "description",
+          documentsData?.description.toUpperCase()
+        );
+
+        const response = await fetch(
+          "https://medico-production-fa1c.up.railway.app/api/add/docs",
+          {
+            method: "POST",
+            body: formDataToSend,
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              Authorization: `Bearer ${userData?.token}`,
+            },
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+
+        if (response.ok) {
+          // localStorage.setItem("medicalDataStatus", JSON.stringify(true));
+          setDocSubmitSuccess(true);
+          setTimeout(() => {
+            setDocSubmitSuccess(false);
+            navigate("/");
+          }, 3000);
+        } else {
+          throw new Error("Server error.");
+        }
+      } catch (error) {
+        console.error(error);
+        setSubmitError("Bad network connection");
+      } finally {
+        setLoader(false);
+      }
+    } else {
+      setSubmitError("Please fill all fields");
+    }
+  };
+
+  //to get all patients
+
+  const [patientsList, setPatientsList] = useState([]);
+  useEffect(() => {
+    if (userData?.token) {
+      const getpatientsList = async () => {
+        setLoader(true);
+        try {
+          const response = await fetch(
+            "https://medico-production-fa1c.up.railway.app/api/assigned/patients",
+            {
+              headers: {
+                Authorization: `Bearer ${userData?.token}`,
+              },
+            }
+          );
+          const data = await response.json();
+          setPatientsList(data?.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoader(false);
+        }
+      };
+      getpatientsList();
+    }
+  }, [userData]);
+
+  const [docAppointments, setDocAppointments] = useState([]);
+  useEffect(() => {
+    if (userData?.token) {
+      const getdocAppointments = async () => {
+        setLoader(true);
+        try {
+          const response = await fetch(
+            "https://medico-production-fa1c.up.railway.app/api/my/appointments",
+            {
+              headers: {
+                Authorization: `Bearer ${userData?.token}`,
+              },
+            }
+          );
+          const data = await response.json();
+          console.log("Doc appointments", data);
+          setDocAppointments(data?.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoader(false);
+        }
+      };
+      getdocAppointments();
+    }
+  }, [userData]);
 
   return (
     <AppContext.Provider
@@ -663,6 +802,11 @@ const AppContextProvider = ({ children }) => {
         regDoc,
         getRootProps,
         getInputProps,
+        handledocumentsDataChange,
+        handleFileChange,
+        handleSubmitDoc,
+        DocSubmitSuccess,
+        patientsList,
       }}
     >
       {children}

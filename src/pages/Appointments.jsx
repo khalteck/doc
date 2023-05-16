@@ -19,7 +19,7 @@ const Appointments = () => {
           </h1>
           <div className="w-full h-[1px] bg-gradient-to-r from-slate-700 to-white/10"></div>
         </div>
-        {userData?.is_patient ? (
+        {userData?.is_patient || userData?.is_medic ? (
           <p className="mt-5 text-center">
             Welcome {userData?.first_name}! View your scheduled appointments
             here.
@@ -31,14 +31,23 @@ const Appointments = () => {
           </p>
         )}
         <div
-          className={`w-full min-h-[250px] bg-blue-300/10 my-8 p-3 md:p-5 rounded-lg flex justify-center ${
-            !appointmentsList.length > 0 && "items-center"
-          }`}
+          className={`w-full bg-blue-300/10 my-8 p-3 md:p-5 rounded-lg flex justify-center`}
         >
           {appointmentsList.length > 0 ? (
-            appointmentsList?.map((item, index) => {
-              return <AppointmentCard item={item} key={index} />;
-            })
+            <table className="w-full border border-gray-500/30">
+              <thead>
+                <tr>
+                  <th className="border border-gray-500/30">User</th>
+                  <th className="border border-gray-500/30">Scheduled Time</th>
+                  <th className="border border-gray-500/30">Scheduled Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {appointmentsList?.map((item, index) => {
+                  return <AppointmentCard item={item} key={index} />;
+                })}
+              </tbody>
+            </table>
           ) : (
             <div className="text-center">
               <img
