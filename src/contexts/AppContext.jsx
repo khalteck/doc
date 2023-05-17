@@ -713,6 +713,7 @@ const AppContextProvider = ({ children }) => {
   };
 
   //to get all patients
+
   const [patientsList, setPatientsList] = useState([]);
   useEffect(() => {
     if (userData?.token) {
@@ -739,7 +740,6 @@ const AppContextProvider = ({ children }) => {
     }
   }, [userData]);
 
-  //get all doctors appointments
   const [docAppointments, setDocAppointments] = useState([]);
   useEffect(() => {
     if (userData?.token && userData?.is_medic) {
