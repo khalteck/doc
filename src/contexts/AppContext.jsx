@@ -292,6 +292,7 @@ const AppContextProvider = ({ children }) => {
     localStorage.removeItem("medicalDataStatus");
     localStorage.removeItem("doctors");
     localStorage.removeItem("appointmentsList");
+    // localStorage.removeItem("docAppointments");
     setUserData({});
     navigate("/");
     window.scrollTo(0, 0);
@@ -609,7 +610,7 @@ const AppContextProvider = ({ children }) => {
             }
           );
           const data = await response.json();
-          console.log("patient appointments", data);
+          // console.log("patient appointments", data);
           if (data.length > 0) {
             localStorage.setItem(
               "appointmentsList",
@@ -692,7 +693,7 @@ const AppContextProvider = ({ children }) => {
         console.log(data);
 
         if (response.ok) {
-          // localStorage.setItem("medicalDataStatus", JSON.stringify(true));
+          localStorage.setItem("medicalDataStatus", JSON.stringify(true));
           setDocSubmitSuccess(true);
           setTimeout(() => {
             setDocSubmitSuccess(false);
@@ -740,10 +741,15 @@ const AppContextProvider = ({ children }) => {
     }
   }, [userData]);
 
-  const [docAppointments, setDocAppointments] = useState([]);
+  const [notification, setNotification] = useState(
+    JSON.parse(localStorage.getItem("notification")) || false
+  );
+  const [docAppointments, setDocAppointments] = useState(
+    JSON.parse(localStorage.getItem("docAppointments")) || []
+  );
   useEffect(() => {
     if (userData?.token && userData?.is_medic) {
-      const getdocAppointments = async () => {
+      const getDocAppointments = async () => {
         setLoader(true);
         try {
           const response = await fetch(
@@ -755,17 +761,60 @@ const AppContextProvider = ({ children }) => {
             }
           );
           const data = await response.json();
-          console.log("Doc appointments", data);
           setDocAppointments(data?.data);
+
+          const storedData =
+            JSON.parse(localStorage.getItem("docAppointments")) || [];
+          const hasNewData = data?.data.length > storedData.length;
+
+          if (hasNewData) {
+            localStorage.setItem("notification", true);
+            setNotification(true);
+          }
+
+          response.ok &&
+            localStorage.setItem("docAppointments", JSON.stringify(data?.data));
         } catch (error) {
           console.error("Error fetching data:", error);
         } finally {
           setLoader(false);
         }
       };
-      getdocAppointments();
+      getDocAppointments();
     }
   }, [userData]);
+
+  function clearNotif() {
+    localStorage.setItem("notification", false);
+    setNotification(false);
+  }
+
+  // useEffect(() => {
+  //   if (userData?.token && userData?.is_medic) {
+  //     const getdocAppointments = async () => {
+  //       setLoader(true);
+  //       try {
+  //         const response = await fetch(
+  //           "https://medico-production-fa1c.up.railway.app/api/my/appointments",
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${userData?.token}`,
+  //             },
+  //           }
+  //         );
+  //         const data = await response.json();
+  //         setDocAppointments(data?.data);
+  //         // response.ok &&
+  //         //   localStorage.setItem("docAppointments", JSON.stringify(data?.data));
+  //       } catch (error) {
+  //         console.error("Error fetching data:", error);
+  //       } finally {
+  //         setLoader(false);
+  //       }
+  //     };
+  //     getdocAppointments();
+  //   }
+  // }, [userData]);
 
   return (
     <AppContext.Provider
@@ -808,6 +857,8 @@ const AppContextProvider = ({ children }) => {
         DocSubmitSuccess,
         patientsList,
         docAppointments,
+        notification,
+        clearNotif,
       }}
     >
       {children}

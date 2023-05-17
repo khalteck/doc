@@ -34,7 +34,7 @@ const Homepage = () => {
     console.log(videoCall);
   }
 
-  // console.log(userData);
+  // console.log(doctors);
   return (
     <>
       <Header />

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import AppointmentCard from "../components/AppointmentCard";
 import DocAppointmentRow from "../components/DocAppointmentRow";
@@ -8,8 +9,14 @@ import { useAppContext } from "../contexts/AppContext";
 import ScrollToTop from "../ScrollToTop";
 
 const Appointments = () => {
-  const { loader, userData, appointmentsList, docAppointments } =
+  const { loader, userData, appointmentsList, docAppointments, clearNotif } =
     useAppContext();
+  // console.log(docAppointments);
+
+  useEffect(() => {
+    clearNotif();
+  }, []);
+
   return (
     <>
       <Header />
@@ -46,7 +53,9 @@ const Appointments = () => {
               </thead>
               <tbody>
                 {appointmentsList?.map((item, index) => {
-                  return <AppointmentCard item={item} key={index} />;
+                  return (
+                    <AppointmentCard item={item} key={index} index={index} />
+                  );
                 })}
               </tbody>
             </table>
@@ -55,9 +64,10 @@ const Appointments = () => {
               <thead>
                 <tr>
                   <th className="border border-gray-500/30">S/N</th>
-                  <th className="border border-gray-500/30">First name</th>
-                  <th className="border border-gray-500/30">Last name</th>
+                  <th className="border border-gray-500/30">Full name</th>
                   <th className="border border-gray-500/30">Medical case</th>
+                  <th className="border border-gray-500/30">Schedule Date</th>
+                  <th className="border border-gray-500/30">Schedule Time</th>
                 </tr>
               </thead>
               <tbody>

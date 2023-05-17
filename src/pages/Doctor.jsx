@@ -26,8 +26,6 @@ const Doctor = () => {
     setShowBook(true);
   }
 
-  const id = doctors.indexOf(eachDoctor);
-  const doc_id = id + 1;
   return (
     <>
       <Header />
@@ -229,7 +227,9 @@ const Doctor = () => {
                 )}
                 <button
                   type="submit"
-                  onClick={() => handleSubmitAppointment(event, doc_id)}
+                  onClick={(event) =>
+                    handleSubmitAppointment(event, eachDoctor?.id)
+                  }
                   className="w-full md:w-[fit-content] px-10 py-2 bg-blue-400 hover:bg-blue-400/70 border border-blue-400 text-white rounded-md my-3"
                 >
                   Book appointment

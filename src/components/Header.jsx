@@ -1,10 +1,13 @@
+import { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
 
 const Header = () => {
-  const { currentPage, userData, logout, loggedOut } = useAppContext();
+  const { currentPage, userData, logout, loggedOut, notification, clearNotif } =
+    useAppContext();
 
+  const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   function handleClick() {
     setOpenMenu((prevState) => !prevState);
@@ -21,14 +24,19 @@ const Header = () => {
     setShowLogout((prev) => !prev);
   }
 
-  // function toggleLogoutOff() {
-  //   setShowLogout(false);
-  // }
-
   const [showDrop, setShowDrop] = useState(false);
 
   function toggleOnOff() {
     setShowDrop((prev) => !prev);
+  }
+
+  const [viewNotif, setViewNotif] = useState(false);
+  useEffect(() => {
+    notification && setViewNotif(true);
+  }, [notification]);
+
+  function closeMod() {
+    setViewNotif(false);
   }
 
   return (
@@ -58,11 +66,16 @@ const Header = () => {
             </Link>
             <Link
               to="/appointments"
-              className={`cursor-pointer px-2 py-1 ${
+              className={`cursor-pointer ${
                 currentPage === "/appointments" && "bg-[#3b82f6] text-white"
               } rounded-md whitespace-nowrap hover:bg-[#3b82f6] hover:text-white hover:translate-y-[6px] transition-all duration-300`}
             >
-              Appointments
+              <div className=" px-2 py-1 relative">
+                Appointments{" "}
+                {notification && (
+                  <div className="w-3 h-3 bg-red-500 rounded-full absolute top-[-5px] right-[-5px]"></div>
+                )}
+              </div>
             </Link>
             {userData?.is_patient && (
               <Link
@@ -291,6 +304,39 @@ const Header = () => {
         )}
       </div>
       {/*mobile header */}
+
+      {notification && viewNotif && (
+        <div className="w-full h-full fixed top-0 left-0 bg-black/80 p-4 flex justify-center items-center z-40 scale">
+          <div className="w-full sm:w-[550px] flex flex-col gap-4 items-center bg-white rounded-lg p-5">
+            <img
+              alt=""
+              src="/images/icons8-info-black-64.png"
+              className="w-10 h-10"
+            />
+            <h3 className="font-medium text-[1.1rem] sm:text-[1.3rem]">
+              Hello Dr. {userData?.first_name}, you have new appointmets.
+            </h3>
+            <div className="w-full flex gap-3 justify-center">
+              <button
+                onClick={closeMod}
+                className="py-2 px-4 border-2 border-blue-500 hover:bg-blue-300 rounded-md text-black hover:text-white"
+              >
+                Close
+              </button>
+              <button
+                onClick={() => {
+                  navigate("/appointments");
+                  clearNotif();
+                  closeMod();
+                }}
+                className="py-2 px-4 bg-blue-500 hover:bg-blue-300 rounded-md text-white"
+              >
+                View appointments?
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {loggedOut && (
         <div className="w-full h-full fixed top-0 left-0 bg-black/90 p-4 flex justify-center items-center z-40 scale">
