@@ -9,6 +9,7 @@ import { useAppContext } from "../contexts/AppContext";
 import Loader from "../components/Loader";
 import DoctorsCardOffline from "../components/DoctorsCardOffline";
 import { useState } from "react";
+import ReactPaginate from "react-paginate";
 
 const Homepage = () => {
   const {
@@ -33,6 +34,26 @@ const Homepage = () => {
     console.log("clicked");
     console.log(videoCall);
   }
+
+  //to handle registrations table pagination
+  // eslint-disable-next-line no-unused-vars
+  const [doctorsPag, setdoctorsPag] = useState(doctors);
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const docPerPage = 6;
+  const pagesVisited = pageNumber * docPerPage;
+
+  const displayDocs = doctorsPag
+    ?.slice(pagesVisited, pagesVisited + docPerPage)
+    ?.map((item, index) => {
+      return <DoctorsCard key={index} item={item} />;
+    });
+
+  const pageCount = Math.ceil(doctorsPag?.length / docPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   // console.log(doctors);
   return (
@@ -306,11 +327,33 @@ const Homepage = () => {
           )}
           {userData?.token && (
             <div className="w-full grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
-              {doctors?.map((item, index) => {
-                return <DoctorsCard key={index} item={item} />;
-              })}
+              {displayDocs}
             </div>
           )}
+          <div className="flex gap-2 mt-4 justify-center">
+            <ReactPaginate
+              previousLabel={
+                <img
+                  alt="user"
+                  src="/images/icons8-back-64.png"
+                  className="w-6 h-6 cursor-pointer rounded-lg hover:bg-blue-500/30"
+                />
+              }
+              nextLabel={
+                <img
+                  alt="user"
+                  src="/images/icons8-next-50.png"
+                  className="w-6 h-6 cursor-pointer rounded-lg hover:bg-blue-500/30"
+                />
+              }
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={
+                "h-6 flex items-center gap-2 mt-4 justify-end text-[.95rem] pag"
+              }
+              activeClassName={"rounded-lg bg-blue-500/70"}
+            />
+          </div>
           {!userData?.token && (
             <div className="w-full grid sm:grid-cols-3 lg:grid-cols-3 gap-4 mt-10">
               {doctorsData?.map((item, index) => {
