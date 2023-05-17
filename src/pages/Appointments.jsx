@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import AppointmentCard from "../components/AppointmentCard";
+import DocAppointmentRow from "../components/DocAppointmentRow";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Loader from "../components/Loader";
@@ -7,7 +8,8 @@ import { useAppContext } from "../contexts/AppContext";
 import ScrollToTop from "../ScrollToTop";
 
 const Appointments = () => {
-  const { loader, userData, appointmentsList } = useAppContext();
+  const { loader, userData, appointmentsList, docAppointments } =
+    useAppContext();
   return (
     <>
       <Header />
@@ -33,7 +35,7 @@ const Appointments = () => {
         <div
           className={`w-full bg-blue-300/10 my-8 p-3 md:p-5 rounded-lg flex justify-center`}
         >
-          {appointmentsList.length > 0 ? (
+          {appointmentsList.length > 0 && userData?.is_patient ? (
             <table className="w-full border border-gray-500/30">
               <thead>
                 <tr>
@@ -45,6 +47,28 @@ const Appointments = () => {
               <tbody>
                 {appointmentsList?.map((item, index) => {
                   return <AppointmentCard item={item} key={index} />;
+                })}
+              </tbody>
+            </table>
+          ) : docAppointments.length > 0 && userData?.is_medic ? (
+            <table className="w-full border border-gray-500/30">
+              <thead>
+                <tr>
+                  <th className="border border-gray-500/30">S/N</th>
+                  <th className="border border-gray-500/30">First name</th>
+                  <th className="border border-gray-500/30">Last name</th>
+                  <th className="border border-gray-500/30">Medical case</th>
+                </tr>
+              </thead>
+              <tbody>
+                {docAppointments?.map((item, index) => {
+                  return (
+                    <DocAppointmentRow
+                      item={item}
+                      key={index}
+                      docAppointments={docAppointments}
+                    />
+                  );
                 })}
               </tbody>
             </table>

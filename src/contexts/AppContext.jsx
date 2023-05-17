@@ -596,7 +596,7 @@ const AppContextProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    if (userData?.token) {
+    if (userData?.token && userData?.is_patient) {
       const getAppointmentsList = async () => {
         setLoader(true);
         try {
@@ -742,7 +742,7 @@ const AppContextProvider = ({ children }) => {
 
   const [docAppointments, setDocAppointments] = useState([]);
   useEffect(() => {
-    if (userData?.token) {
+    if (userData?.token && userData?.is_medic) {
       const getdocAppointments = async () => {
         setLoader(true);
         try {
@@ -807,6 +807,7 @@ const AppContextProvider = ({ children }) => {
         handleSubmitDoc,
         DocSubmitSuccess,
         patientsList,
+        docAppointments,
       }}
     >
       {children}
