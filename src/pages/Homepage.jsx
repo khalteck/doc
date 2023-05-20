@@ -343,7 +343,7 @@ const Homepage = () => {
                 <img
                   alt="user"
                   src="/images/icons8-next-50.png"
-                  className="w-6 h-6 cursor-pointer rounded-lg hover:bg-blue-500/30"
+                  className="w-5 h-5 cursor-pointer rounded-lg hover:bg-blue-500/30"
                 />
               }
               pageCount={pageCount}

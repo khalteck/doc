@@ -789,32 +789,61 @@ const AppContextProvider = ({ children }) => {
     setNotification(false);
   }
 
-  // useEffect(() => {
-  //   if (userData?.token && userData?.is_medic) {
-  //     const getdocAppointments = async () => {
-  //       setLoader(true);
-  //       try {
-  //         const response = await fetch(
-  //           "https://medico-production-fa1c.up.railway.app/api/my/appointments",
-  //           {
-  //             headers: {
-  //               Authorization: `Bearer ${userData?.token}`,
-  //             },
-  //           }
-  //         );
-  //         const data = await response.json();
-  //         setDocAppointments(data?.data);
-  //         // response.ok &&
-  //         //   localStorage.setItem("docAppointments", JSON.stringify(data?.data));
-  //       } catch (error) {
-  //         console.error("Error fetching data:", error);
-  //       } finally {
-  //         setLoader(false);
-  //       }
-  //     };
-  //     getdocAppointments();
-  //   }
-  // }, [userData]);
+  //to get patient's diagnosis
+  const [diagnosis, setDiagnosis] = useState([]);
+  useEffect(() => {
+    if (userData?.token && userData?.is_patient) {
+      const getDiagnosis = async () => {
+        setLoader(true);
+        try {
+          const response = await fetch(
+            "https://medico-production-fa1c.up.railway.app/api/my/diag",
+            {
+              headers: {
+                Authorization: `Bearer ${userData?.token}`,
+              },
+            }
+          );
+          const data = await response.json();
+          console.log("Diagnosis: ", data);
+          setDiagnosis(data?.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoader(false);
+        }
+      };
+      getDiagnosis();
+    }
+  }, [userData]);
+
+  //to get patient's diagnosis
+  const [hopitalCard, setHopitalCard] = useState([]);
+  useEffect(() => {
+    if (userData?.token && userData?.is_patient) {
+      const gethopitalCard = async () => {
+        setLoader(true);
+        try {
+          const response = await fetch(
+            "https://medico-production-fa1c.up.railway.app/api/my/card",
+            {
+              headers: {
+                Authorization: `Bearer ${userData?.token}`,
+              },
+            }
+          );
+          const data = await response.json();
+          console.log("hopitalCard: ", data);
+          setHopitalCard(data?.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoader(false);
+        }
+      };
+      gethopitalCard();
+    }
+  }, [userData]);
 
   return (
     <AppContext.Provider
@@ -859,6 +888,7 @@ const AppContextProvider = ({ children }) => {
         docAppointments,
         notification,
         clearNotif,
+        diagnosis,
       }}
     >
       {children}

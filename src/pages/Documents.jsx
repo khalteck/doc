@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import AppointmentCard from "../components/AppointmentCard";
+import DiagnosisRow from "../components/DiagnosisRow";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Loader from "../components/Loader";
@@ -16,8 +17,15 @@ const Documents = () => {
     handleFileChange,
     handleSubmitDoc,
     DocSubmitSuccess,
+    diagnosis,
   } = useAppContext();
 
+  const [submitDoc, setSubmitDoc] = useState(false);
+  function toggleSubmitDoc() {
+    setSubmitDoc((prev) => !prev);
+  }
+
+  // console.log(diagnosis);
   return (
     <>
       <Header />
@@ -48,66 +56,104 @@ const Documents = () => {
           Welcome {userData?.first_name}! You can submit your hospital documents
           here.
         </p>
-
-        <div
-          className={`w-full md:w-[600px] min-h-[400] bg-blue-300/10 my-8 mx-auto p-3 md:p-5 rounded-lg flex justify-center`}
+        <button
+          onClick={toggleSubmitDoc}
+          className="py-2 mt-5 px-6 text-[.8rem] sm:text-[1rem] bg-[#3b82f6] hover:bg-blue-300 text-white rounded-md"
         >
-          <form>
-            <label htmlFor="title" className="mb-1 font-medium text-[1.2rem]">
-              Document Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              onChange={handledocumentsDataChange}
-              placeholder="E.g Birth Certificate"
-              className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
-            />
+          {submitDoc ? "Close Form" : "Submit Document"}
+        </button>
 
-            <label
-              htmlFor="description"
-              className="mb-1 font-medium text-[1.2rem]"
-            >
-              Description
-            </label>
-            <input
-              type="text"
-              id="description"
-              onChange={handledocumentsDataChange}
-              placeholder="E.g Birth Certificate"
-              className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
-            />
+        {submitDoc && (
+          <div
+            className={`w-full md:w-[600px] min-h-[400] bg-blue-300/10 my-8 mx-auto p-3 md:p-5 rounded-lg flex justify-center`}
+          >
+            <form>
+              <label htmlFor="title" className="mb-1 font-medium text-[1.2rem]">
+                Document Title
+              </label>
+              <input
+                type="text"
+                id="title"
+                onChange={handledocumentsDataChange}
+                placeholder="E.g Birth Certificate"
+                className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
+              />
 
-            <label
-              htmlFor="doc_file"
-              className="mb-1 font-medium text-[1.2rem]"
-            >
-              Upload Document
-            </label>
-            <input
-              id="doc_file"
-              type="file"
-              onChange={handleFileChange}
-              className="w-full bg-blue-400/10 py-1 px-3 mb-3 rounded-md outline-none border border-blue-400/50"
-            />
+              <label
+                htmlFor="description"
+                className="mb-1 font-medium text-[1.2rem]"
+              >
+                Description
+              </label>
+              <input
+                type="text"
+                id="description"
+                onChange={handledocumentsDataChange}
+                placeholder="E.g Birth Certificate"
+                className="w-full bg-[#3b82f6]/20 mb-4 mt-2 p-3 outline-none rounded-lg"
+              />
 
-            {submitError && (
-              <div className="w-full flex gap-4 items-center py-3 px-10 my-2 bg-red-400/20 text-[0.85rem] rounded-lg border border-red-400">
-                <img
-                  alt=""
-                  src="/images/icons8-medium-risk-50.png"
-                  className="w-6 h-6 mr-1"
-                />
-                <p>{submitError}</p>
-              </div>
-            )}
-            <button
-              onClick={handleSubmitDoc}
-              className="w-full bg-[#3b82f6] mb-6 mt-2 p-3 outline-none rounded-lg text-white"
-            >
-              Submit
-            </button>
-          </form>
+              <label
+                htmlFor="doc_file"
+                className="mb-1 font-medium text-[1.2rem]"
+              >
+                Upload Document
+              </label>
+              <input
+                id="doc_file"
+                type="file"
+                onChange={handleFileChange}
+                className="w-full bg-blue-400/10 py-1 px-3 mb-3 rounded-md outline-none border border-blue-400/50"
+              />
+
+              {submitError && (
+                <div className="w-full flex gap-4 items-center py-3 px-10 my-2 bg-red-400/20 text-[0.85rem] rounded-lg border border-red-400">
+                  <img
+                    alt=""
+                    src="/images/icons8-medium-risk-50.png"
+                    className="w-6 h-6 mr-1"
+                  />
+                  <p>{submitError}</p>
+                </div>
+              )}
+              <button
+                onClick={handleSubmitDoc}
+                className="w-full bg-[#3b82f6] mb-6 mt-2 p-3 outline-none rounded-lg text-white"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        )}
+
+        <h1 className="text-[1.2rem] sm:text-[2rem] font-normal uppercase text-center mb-1 mt-10">
+          Diagnosis
+        </h1>
+        <div className="w-full overflow-x-auto">
+          {userData?.is_patient && (
+            <table className="w-full border border-gray-500/30 min-w-[1100px]">
+              <thead>
+                <tr>
+                  <th className="border border-gray-500/30">Date submitted</th>
+                  <th className="border border-gray-500/30">Time</th>
+                  <th className="border border-gray-500/30">Diagnosis</th>
+                  <th className="border border-gray-500/30">Prescription</th>
+                  <th className="border border-gray-500/30">Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {diagnosis?.map((item, index) => {
+                  return (
+                    <DiagnosisRow
+                      item={item}
+                      key={index}
+                      diagnosis={diagnosis}
+                    />
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
       </section>
       <ScrollToTop />
