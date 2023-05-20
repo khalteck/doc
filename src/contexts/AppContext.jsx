@@ -805,7 +805,7 @@ const AppContextProvider = ({ children }) => {
             }
           );
           const data = await response.json();
-          console.log("Diagnosis: ", data);
+          // console.log("Diagnosis: ", data);
           setDiagnosis(data?.data);
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -818,30 +818,30 @@ const AppContextProvider = ({ children }) => {
   }, [userData]);
 
   //to get patient's diagnosis
-  const [hopitalCard, setHopitalCard] = useState([]);
+  const [hospitalCard, setHospitalCard] = useState([]);
   useEffect(() => {
     if (userData?.token && userData?.is_patient) {
-      const gethopitalCard = async () => {
+      const getHospitalCard = async () => {
         setLoader(true);
         try {
           const response = await fetch(
             "https://medico-production-fa1c.up.railway.app/api/my/card",
             {
               headers: {
-                Authorization: `Bearer ${userData?.token}`,
+                Authorization: `Bearer ${userData.token}`,
               },
             }
           );
           const data = await response.json();
-          console.log("hopitalCard: ", data);
-          setHopitalCard(data?.data);
+          // console.log("hospitalCard: ", data);
+          setHospitalCard(data);
         } catch (error) {
           console.error("Error fetching data:", error);
         } finally {
           setLoader(false);
         }
       };
-      gethopitalCard();
+      getHospitalCard(); // Call the function
     }
   }, [userData]);
 
@@ -889,6 +889,7 @@ const AppContextProvider = ({ children }) => {
         notification,
         clearNotif,
         diagnosis,
+        hospitalCard,
       }}
     >
       {children}
