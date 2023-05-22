@@ -330,30 +330,32 @@ const Homepage = () => {
               {displayDocs}
             </div>
           )}
-          <div className="flex gap-2 mt-4 justify-center">
-            <ReactPaginate
-              previousLabel={
-                <img
-                  alt="user"
-                  src="/images/icons8-back-64.png"
-                  className="w-6 h-6 cursor-pointer rounded-lg hover:bg-blue-500/30"
-                />
-              }
-              nextLabel={
-                <img
-                  alt="user"
-                  src="/images/icons8-next-50.png"
-                  className="w-5 h-5 cursor-pointer rounded-lg hover:bg-blue-500/30"
-                />
-              }
-              pageCount={pageCount}
-              onPageChange={changePage}
-              containerClassName={
-                "h-6 flex items-center gap-2 mt-4 justify-end text-[.95rem] pag"
-              }
-              activeClassName={"rounded-lg bg-blue-500/70"}
-            />
-          </div>
+          {userData?.token && (
+            <div className="flex gap-2 mt-4 justify-center">
+              <ReactPaginate
+                previousLabel={
+                  <img
+                    alt="user"
+                    src="/images/icons8-back-64.png"
+                    className="w-6 h-6 cursor-pointer rounded-lg hover:bg-blue-500/30"
+                  />
+                }
+                nextLabel={
+                  <img
+                    alt="user"
+                    src="/images/icons8-next-50.png"
+                    className="w-5 h-5 cursor-pointer rounded-lg hover:bg-blue-500/30"
+                  />
+                }
+                pageCount={pageCount}
+                onPageChange={changePage}
+                containerClassName={
+                  "h-6 flex items-center gap-2 mt-4 justify-end text-[.95rem] pag"
+                }
+                activeClassName={"rounded-lg bg-blue-500/70"}
+              />
+            </div>
+          )}
           {!userData?.token && (
             <div className="w-full grid sm:grid-cols-3 lg:grid-cols-3 gap-4 mt-10">
               {doctorsData?.map((item, index) => {

@@ -1,7 +1,7 @@
-const DocAppointmentRow = ({ item, index, docAppointments }) => {
+const DocAppointmentRow = ({ item, index }) => {
   return (
     <tr className="border border-gray-500/30">
-      <td className="border border-gray-500/30">{docAppointments?.length}</td>
+      <td className="border border-gray-500/30">{index + 1}</td>
       <td className="border border-gray-500/30">
         {item?.first_name} {item?.last_name}
       </td>

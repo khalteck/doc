@@ -11,7 +11,7 @@ import ScrollToTop from "../ScrollToTop";
 const Appointments = () => {
   const { loader, userData, appointmentsList, docAppointments, clearNotif } =
     useAppContext();
-  // console.log(docAppointments);
+  console.log(docAppointments);
 
   useEffect(() => {
     clearNotif();
@@ -73,11 +73,7 @@ const Appointments = () => {
               <tbody>
                 {docAppointments?.map((item, index) => {
                   return (
-                    <DocAppointmentRow
-                      item={item}
-                      key={index}
-                      docAppointments={docAppointments}
-                    />
+                    <DocAppointmentRow item={item} key={index} index={index} />
                   );
                 })}
               </tbody>

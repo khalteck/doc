@@ -47,7 +47,7 @@ const Documents = () => {
       )}
 
       <section className="w-full min-h-[700px] mt-[80px] pt-4 pb-8 md:py-10 text-slate-700 lg:px-[15%] px-5 font-light text-center">
-        <div className="w-full flex flex-wrap justify-center gap-4 mt-4 md:mt-10">
+        <div className="w-full flex flex-wrap justify-center gap-20 mt-4 md:mt-10">
           <div className="mb-5">
             <div className="w-fit mx-auto">
               <h1 className="text-[1.2rem] sm:text-[2rem] font-normal uppercase text-center mb-1">
