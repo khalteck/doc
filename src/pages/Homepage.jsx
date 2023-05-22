@@ -102,7 +102,7 @@ const Homepage = () => {
           </h1>
           <div className="w-full h-full bg-green-800">
             <iframe
-              className="w-full h-full"
+              className="w-full h-[90vh]"
               src="https://whereby.com/khalteck"
               allow="camera; microphone; fullscreen; speaker; display-capture; autoplay"
             ></iframe>
